@@ -1,0 +1,87 @@
+﻿@model Automated_Voting_System.Models.Login
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SignUpView</h1>
+
+<section class="blog-area pb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-8 col-sm-10">
+                <div class="single-blog blog-style-one">
+                    <div class="blog-image">
+                        <a class="more" asp-action="SignupElectors">
+                            <img src="https://cdn.ayroui.com/1.0/images/blog/1.jpg" alt="Blog" />
+                        </a>
+                    </div>
+                    <div class="blog-content">
+                        <h5 class="blog-title">
+                            <a class="more" asp-action="SignupElectors">
+                                Electors
+                            </a>
+                        </h5>
+                        <p class="text">
+                            Join us in making a difference! Sign up now for the upcoming elections and have your voice heard.
+                        </p>
+                        <a class="more" asp-action="SignupElectors">Sign Up</a>
+                    </div>
+                </div>
+                <!-- single Sign Up -->
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-10">
+                <div class="single-blog blog-style-one">
+                    <div class="blog-image">
+                        <a class="more" asp-action="SignupCandidate">
+                            <img src="https://cdn.ayroui.com/1.0/images/blog/2.jpg" alt="Blog" />
+                        </a>
+                    </div>
+                    <div class="blog-content">
+                        <h5 class="blog-title">
+                            <a class="more" asp-action="SignupCandidate">
+                                Candidates
+                            </a>
+                        </h5>
+                        <p class="text">
+                            Are you passionate about creating positive change? Become a candidate in the upcoming election by signing up.
+                        </p>
+                        <a class="more" asp-action="SignupCandidate">Sign Up</a>
+                    </div>
+                </div>
+                <!-- single Sign Up -->
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-10">
+                <div class="single-blog blog-style-one">
+                    <div class="blog-image">
+                        <a class="more" asp-action="SignupPoliticalParty">
+                            <img src="https://cdn.ayroui.com/1.0/images/blog/3.jpg" alt="Blog" />
+                        </a>
+                    </div>
+                    <div class="blog-content">
+                        <h5 class="blog-title">
+                            <a class="more" asp-action="SignupPoliticalParty">
+                               Political Parties
+                            </a>
+                        </h5>
+                       
+                        <p class="text">
+                            Secure your spot in the upcoming elections by registering your party. 
+                            Join the democratic process and make a lasting impact.
+                        </p>
+                        <a class="more" asp-action="SignupPoliticalParty">Sign Up</a>
+                    </div>
+                </div>
+                <!-- single Sign Up -->
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</section>
+<!--====== Sign Up PART ENDS ======-->
+
+@section Scripts
+    {
+    <link href="~/css/Signup.css" rel="stylesheet" />
+}
