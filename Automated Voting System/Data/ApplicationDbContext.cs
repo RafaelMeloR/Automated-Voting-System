@@ -1,17 +1,15 @@
-﻿using Automated_Voting_System.Models;
+﻿using Automated_Voting_System.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Automated_Voting_System.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext() { }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-
-        public virtual DbSet<Person> Person { get; set; }
+        public DbSet<Person> Person { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Elector> Elector { get; set; }

@@ -1,23 +1,40 @@
 using Automated_Voting_System.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ 
+var policyUserAuthenticated = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddControllersWithViews(
+    options =>
+    {
+        options.Filters.Add(new AuthorizeFilter(policyUserAuthenticated));
+    });
+
+builder.Services.AddControllersWithViews(); 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer("name=DefaultConnection");
 });
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-});
+builder.Services.AddAuthentication();
 
+builder.Services.AddIdentity<IdentityUser,IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+        options =>
+        {
+            options.LoginPath = "/SignUp/SignupElectors";
+            options.AccessDeniedPath = "/SignUp/SignupElectors";
+
+        });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

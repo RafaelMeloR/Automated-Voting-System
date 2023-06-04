@@ -18,7 +18,6 @@ namespace Automated_Voting_System.Controllers
         //[HttpPost]
         public ActionResult login()
         {
-
             return View();
         }
 

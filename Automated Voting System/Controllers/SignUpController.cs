@@ -1,27 +1,109 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Automated_Voting_System.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Automated_Voting_System.Controllers
 {
     public class SignUpController : Controller
     {
-        public IActionResult Signup()
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+        public SignUpController(UserManager<IdentityUser> userManager,
+                SignInManager<IdentityUser> signInManager) 
         {
-            return View();
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult SignupElectors()
         {
             return View();
         }
 
-        public IActionResult SignupCandidate()
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignupElectors(SignUpViewModel model)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
+
+            var result = await userManager.CreateAsync(user, password: model.Password);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(String.Empty, error.Description);
+                }
+            }
+            return View(model);
         }
 
-        public IActionResult SignupPoliticalParty()
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignupCandidate(SignUpViewModel model)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
+
+            var result = await userManager.CreateAsync(user, password: model.Password);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(String.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignupPoliticalParty(SignUpViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
+
+            var result = await userManager.CreateAsync(user, password: model.Password);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(String.Empty, error.Description);
+                }
+            }
+            return View(model);
         }
     }
 }
