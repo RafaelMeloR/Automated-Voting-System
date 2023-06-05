@@ -24,6 +24,8 @@ namespace Automated_Voting_System.Entities
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public bool isActive { get; set; }
+        public int UserId { get; set; }
+        public IdentityUser User { get; set; }
 
     }
 }

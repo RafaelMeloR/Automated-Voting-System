@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    { 
+            
+                <li>
+                <span class="nav-item text-light"> Welcome, @User.Identity.Name</span>
+                </li>
+                <li> 
+                <form  asp-action="logout" asp-controller="login">
+                    <button  type="submit" class="nav-link btn btn-link text-light">
+                        Logout
+                    </button>
+                </form>
+            </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-item" asp-controller="SignUp" asp-action="SignupElectors">
+                Signup
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item" asp-controller="Login" asp-action="login">
+                Login
+            </a>
+        </li>
+    }
+    
+</ul>

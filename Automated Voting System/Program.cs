@@ -31,8 +31,8 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>(options =>
 builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
         options =>
         {
-            options.LoginPath = "/SignUp/SignupElectors";
-            options.AccessDeniedPath = "/SignUp/SignupElectors";
+            options.LoginPath = "/SignUp/Signup";
+            options.AccessDeniedPath = "/SignUp/Signup";
 
         });
 var app = builder.Build();

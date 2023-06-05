@@ -1,0 +1,60 @@
+﻿@using Automated_Voting_System.Constants; 
+<!--====== NAVBAR ONE PART START ======-->
+<section class="navbar-area navbar-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img width="150"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Coca-Cola_logo_white.png/640px-Coca-Cola_logo_white.png" alt="Logo" />
+                    </a>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarOne"
+                            aria-controls="navbarOne"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
+                        <ul class="navbar-nav m-auto"> 
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a> 
+                            </li>
+                            <li class="nav-item">
+                                @if (User.IsInRole(Constants.AdminRole))
+                                {
+                                    <a asp-area="" asp-controller="Admin" asp-action="ListUsers">Users Role</a>
+                                }
+                            </li> 
+                        </ul>
+                    </div>
+                    <div class="navbar-btn d-none d-sm-inline-block">
+                        <partial name="_LinksLogin" />
+                    </div>
+                </nav>
+                <!-- navbar -->
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</section>
+<!--====== NAVBAR ONE PART ENDS ======-->
+<!--====== Bootstrap js ======-->
+<script src="https://cdn.ayroui.com/1.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    //===== close navbar-collapse when a  clicked
+    let navbarTogglerOne = document.querySelector(
+        ".navbar-one .navbar-toggler"
+    );
+    navbarTogglerOne.addEventListener("click", function () {
+        navbarTogglerOne.classList.toggle("active");
+    });
+</script>
+
+ 

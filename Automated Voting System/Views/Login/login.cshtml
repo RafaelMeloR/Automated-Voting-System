@@ -4,29 +4,79 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>login</h1>
+<!--====== SIGNIN ONE PART START ======-->
+<section class="signin-area signin-one">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <form asp-action="login">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="signin-form form-style-two rounded-buttons">
+                        <h1>Login</h1>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-input"> 
+                                    <div class="input-items default">
+                                        <input asp-for="Email" autocomplete="off" class="form-control" placeholder="Email" />
+                                        <i class="lni lni-envelope"></i>
+                                    </div>
+                                </div>
 
-<div class="card">
-    <div class="card-body">
-<form asp-controller="login" asp-action="login" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" autocomplete="off" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+                                <!-- form input -->
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-input">
+                                    <label>Password for your account</label>
+                                    <div class="input-items default">
+                                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                                        <i class="lni lni-key"></i>
+                                    </div>
+                                </div>
+                                <!-- form input -->
+                            </div>
+                                <div class="col-md-12">
+                                    <div class="switch-btn">
+                                        <div class="input-items default">
+                                            <div class="form-check">
+                                                <br/>
+                                                <label>Remember Me</label>
+                                                <input asp-for="rememberMe" class="form-check-input " type="checkbox" id="flexCheckDefault">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- form input -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-input rounded-buttons">
+                                    <button class="btn primary-btn rounded-full"
+                                           asp-controller="SignUp" asp-action="SignupElectors">
+                                        Sign Up
+                                    </button>
+                                </div>
+                                <!-- form input -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-input rounded-buttons">
+                                    <button class="btn primary-btn-outline rounded-full">
+                                        Sign In!
+                                    </button>
+                                </div>
+                                <!-- form input -->
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <!-- signin form -->
+                </form>
+            </div>
+        </div>
+        <!-- row -->
     </div>
-
-    <div class="mb-3">
-        <label asp-for="Password" class="form-label"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <button class="btn btn-success">Sign Up</button>
-    <button class="btn btn-success" asp-action="login">Login</button>
-        </form>
-    </div>
-</div>
-
+    <!-- container -->
+</section>
+<!--====== SIGNIN ONE PART ENDS ======-->
+@section Scripts
+    {
+    <link href="~/css/signupform.css" rel="stylesheet" />
+}
 

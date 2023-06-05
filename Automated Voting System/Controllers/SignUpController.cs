@@ -17,6 +17,12 @@ namespace Automated_Voting_System.Controllers
         }
 
         [AllowAnonymous]
+        public IActionResult Signup()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public IActionResult SignupElectors()
         {
             return View();
@@ -50,6 +56,12 @@ namespace Automated_Voting_System.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public IActionResult SignupCandidate()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> SignupCandidate(SignUpViewModel model)
@@ -76,6 +88,12 @@ namespace Automated_Voting_System.Controllers
                 }
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult SignupPoliticalParty()
+        {
+            return View();
         }
 
         [HttpPost]
