@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Sign Up"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>SignUpView</h1>
+ 
 
 <section class="blog-area pb-5">
     <div class="container">
@@ -11,11 +11,12 @@
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
                         <a class="more" asp-action="SignupElectors">
-                            <img src="https://cdn.ayroui.com/1.0/images/blog/1.jpg" alt="Blog" />
+                            <img class="ima" src="/assets/electors.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">
                         <h5 class="blog-title">
+                            
                             <a class="more" asp-action="SignupElectors">
                                 Electors
                             </a>
@@ -32,7 +33,7 @@
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
                         <a class="more" asp-action="SignupCandidate">
-                            <img src="https://cdn.ayroui.com/1.0/images/blog/2.jpg" alt="Blog" />
+                            <img src="/assets/candidates.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">
@@ -53,7 +54,7 @@
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
                         <a class="more" asp-action="SignupPoliticalParty">
-                            <img src="https://cdn.ayroui.com/1.0/images/blog/3.jpg" alt="Blog" />
+                            <img src="/assets/politicalparties.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">

@@ -1,4 +1,6 @@
-﻿using Automated_Voting_System.Models;
+﻿using Automated_Voting_System.Data;
+using Automated_Voting_System.Entities;
+using Automated_Voting_System.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +54,9 @@ namespace Automated_Voting_System.Controllers
                 {
                     ModelState.AddModelError(String.Empty, error.Description);
                 }
-            }
+            } 
+
+            
             return View(model);
         }
 

@@ -181,6 +181,34 @@
       "PackagePath": "staticwebassets\\Automated Voting System.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\candidates.png",
+      "PackagePath": "staticwebassets\\assets\\candidates.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\electors.png",
+      "PackagePath": "staticwebassets\\assets\\electors.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\logo\\logo.png",
+      "PackagePath": "staticwebassets\\assets\\logo\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\logo\\logo_white.png",
+      "PackagePath": "staticwebassets\\assets\\logo\\logo_white.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\logo\\logo_white2.png",
+      "PackagePath": "staticwebassets\\assets\\logo\\logo_white2.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\logo\\logo_white3.png",
+      "PackagePath": "staticwebassets\\assets\\logo\\logo_white3.png"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\assets\\politicalparties.png",
+      "PackagePath": "staticwebassets\\assets\\politicalparties.png"
+    },
+    {
       "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\css\\Signup.css",
       "PackagePath": "staticwebassets\\css\\Signup.css"
     },
@@ -197,12 +225,20 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\css\\stepForm.css",
+      "PackagePath": "staticwebassets\\css\\stepForm.css"
+    },
+    {
       "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
       "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\js\\stepForm.js",
+      "PackagePath": "staticwebassets\\js\\stepForm.js"
     },
     {
       "Id": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\Automated Voting System\\wwwroot\\lib\\bootstrap\\LICENSE",
