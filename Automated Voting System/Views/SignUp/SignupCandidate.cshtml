@@ -19,127 +19,117 @@
                     <li class="active">Personal Information</li>
                     <li>Address</li>
                     <li>User Information</li>
-                </ul> 
+                </ul>
             </div>
-            <form asp-action="SignupCandidate">
-            <div class="right-side">
-                <div class="main active">
-                    <div class="text">
-                        <h2>Your Personal Information</h2>
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required id="user_name">
-                            <span>Name</span>
+            <form asp-action="SignupForm">
+                <input asp-for="role" value="candidates" hidden />
+                <div class="right-side">
+                    <div class="main active">
+                        <div class="text">
+                            <h2>Your Personal Information</h2>
                         </div>
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>Last Name</span>
-                        </div>
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required >
-                            <span>Phone number</span>
-                        </div>
-                        <div class="input-div">
-                            <input type="text" required >
-                            <span>E-mail Address</span>
-                        </div>
-                    </div>
-                    <div class="input-text"> 
+                        <div class="input-text">
                             <div class="input-div">
-                                <select>
+                                <input asp-for="Name" type="text" required id="user_name">
+                                <span>Name</span>
+                            </div>
+                            <div class="input-div">
+                                <input asp-for="LastName" type="text" required>
+                                <span>Last Name</span>
+                            </div>
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input asp-for="Phone" type="text" required>
+                                <span>Phone number</span>
+                            </div>
+
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <select asp-for="Gender">
                                     <option>Gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>  
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
                             </div>
-                        <div class="input-div">
-                            <select>
-                                <option>Civil Status</option>
-                                <option>Single</option>
-                                <option>Maried</option>
-                            </select>
+                            <div class="input-div">
+                                <select asp-for="MarriedName">
+                                    <option>Civil Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Maried">Maried</option>
+                                </select>
+                            </div>
                         </div>
-                    </div> 
                         <div class="input-div">
-                            <input type="date" required>
+                            <input asp-for="bornDate" type="date" required>
                             <span>Birth Day</span>
-                        </div> 
-                    <div class="buttons">
-                        <button class="next_button">Next</button>
-                    </div>
-                </div> 
-                <div class="main">
-                    <div class="text">
-                        <h2>Address</h2> 
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>Address</span>
                         </div>
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>Number</span>
+                        <div class="buttons">
+                            <button class="next_button">Next</button>
                         </div>
                     </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>City</span>
+                    <div class="main">
+                        <div class="text">
+                            <h2>Address</h2>
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input asp-for="Thoroughfare" type="text" required>
+                                <span>Address</span>
+                            </div>
+                            <div class="input-div">
+                                <input asp-for="ApartmentNumber" type="text" required>
+                                <span>Number</span>
+                            </div>
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input asp-for="City" type="text" required>
+                                <span>City</span>
+                            </div>
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input asp-for="PostalCode" type="text" required>
+                                <span>Postal Code</span>
+                            </div>
+                        </div>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input type="text" required>
+                                <span>Province</span>
+                            </div>
+                        </div>
+                        <div class="buttons button_space">
+                            <button class="back_button">Back</button>
+                            <button class="next_button">Next Step</button>
                         </div>
                     </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>Postal Code</span>
+                    <div class="main">
+                        <div class="text">
+                            <h2>User Information</h2>
                         </div>
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input type="text" required>
-                            <span>Province</span>
+                        <div class="input-text">
+                            <div class="input-div">
+                                <input asp-for="Email" type="text" required require>
+                                <span>Email</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="buttons button_space">
-                        <button class="back_button">Back</button>
-                        <button class="next_button">Next Step</button>
-                    </div>
-                </div>
-                <div class="main"> 
-                    <div class="text">
-                        <h2>User Information</h2> 
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
-                            <input  asp-for="Email" type="text" required require>
-                            <span>Email</span>
-                        </div> 
-                    </div>
-                    <div class="input-text">
-                        <div class="input-div">
+                        <div class="input-text">
+                            <div class="input-div">
                                 <input asp-for="Password" type="password" required>
-                            <span>Password</span>
-                        </div> 
-                    </div> 
-                    <div class="buttons button_space">
-                        <button class="back_button">Back</button>
-                        <button >Sign Up</button>
+                                <span>Password</span>
+                            </div>
+                        </div>
+                        <div class="buttons button_space">
+                            <button class="back_button">Back</button>
+                            <button>Sign Up</button>
+                        </div>
                     </div>
                 </div>
-                </div>
-                 </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
-@section Scripts
-    { 
-    <link href="~/css/stepForm.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <script src="~/js/stepForm.js"></script>
-    
-}
- 

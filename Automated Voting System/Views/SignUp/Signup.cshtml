@@ -10,21 +10,24 @@
             <div class="col-lg-4 col-md-8 col-sm-10">
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
-                        <a class="more" asp-action="SignupElectors">
+                        <a class="more">
                             <img class="ima" src="/assets/electors.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">
                         <h5 class="blog-title">
-                            
-                            <a class="more" asp-action="SignupElectors">
+                            <a class="more">
                                 Electors
                             </a>
                         </h5>
                         <p class="text">
                             Join us in making a difference! Sign up now for the upcoming elections and have your voice heard.
                         </p>
-                        <a class="more" asp-action="SignupElectors">Sign Up</a>
+                        <form asp-action="SignupForm">
+                            <input name="role" value="electors" hidden />
+                            <input type="submit" value="Sign Up" class="more" asp-action="SignupForm">
+                        </form>
+                       
                     </div>
                 </div>
                 <!-- single Sign Up -->
@@ -32,20 +35,23 @@
             <div class="col-lg-4 col-md-8 col-sm-10">
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
-                        <a class="more" asp-action="SignupCandidate">
+                        <a class="more">
                             <img src="/assets/candidates.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">
                         <h5 class="blog-title">
-                            <a class="more" asp-action="SignupCandidate">
+                            <a class="more">
                                 Candidates
                             </a>
                         </h5>
                         <p class="text">
                             Are you passionate about creating positive change? Become a candidate in the upcoming election by signing up.
                         </p>
-                        <a class="more" asp-action="SignupCandidate">Sign Up</a>
+                        <form asp-action="SignupForm">
+                            <input name="role" value="candidates" hidden />
+                            <input type="submit" value="Sign Up" class="more" asp-action="SignupForm">
+                        </form>
                     </div>
                 </div>
                 <!-- single Sign Up -->
@@ -53,13 +59,13 @@
             <div class="col-lg-4 col-md-8 col-sm-10">
                 <div class="single-blog blog-style-one">
                     <div class="blog-image">
-                        <a class="more" asp-action="SignupPoliticalParty">
+                        <a class="more">
                             <img src="/assets/politicalparties.png" alt="Blog" />
                         </a>
                     </div>
                     <div class="blog-content">
                         <h5 class="blog-title">
-                            <a class="more" asp-action="SignupPoliticalParty">
+                            <a class="more">
                                Political Parties
                             </a>
                         </h5>
@@ -68,7 +74,10 @@
                             Secure your spot in the upcoming elections by registering your party. 
                             Join the democratic process and make a lasting impact.
                         </p>
-                        <a class="more" asp-action="SignupPoliticalParty">Sign Up</a>
+                        <form asp-action="SignupForm">
+                            <input name="role" value="politicalParties" hidden />
+                            <input type="submit" value="Sign Up" class="more" asp-action="SignupForm">
+                        </form>
                     </div>
                 </div>
                 <!-- single Sign Up -->

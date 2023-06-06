@@ -1,0 +1,51 @@
+﻿@model ListUsersViewModel
+ 
+@{
+    ViewData["Title"] = "ListUsersCrud";
+}
+
+
+@if (Model.Message is not null)
+{
+    <div class="alert alert-success" role="alert">
+        @Model.Message
+    </div>
+}
+
+<h1>Users </h1>
+@if (Model.Users is not null)
+{
+    <form method="post">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Edit</td>
+                    <td>Delete</td> 
+                    <td>User</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var user in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary btn-success btn-sm" asp-action="makeAdmin" asp-route-email="@user.Email">
+                              Edit
+                            </button>
+                         </td>
+                         <td>
+                            <button class="btn btn-secondary btn-danger btn-sm" asp-action="deteleUser" asp-route-email="@user.Email">
+                               Remove
+                            </button>
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else{
+}

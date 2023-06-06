@@ -32,7 +32,13 @@
                                 {
                                     <a asp-area="" asp-controller="Admin" asp-action="ListUsers">Users Role</a>
                                 }
-                            </li> 
+                            </li>
+                            <li class="nav-item">
+                                @if (User.IsInRole(Constants.AdminRole))
+                                {
+                                    <a asp-area="" asp-controller="Admin" asp-action="ListUsersCrud">Users</a>
+                                }
+                            </li>
                         </ul>
                     </div>
                     <div class="navbar-btn d-none d-sm-inline-block">

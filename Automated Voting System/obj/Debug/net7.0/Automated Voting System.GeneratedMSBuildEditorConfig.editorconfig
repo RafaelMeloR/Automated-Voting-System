@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGlzdFVzZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/Admin/ListUsersCrud.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGlzdFVzZXJzQ3J1ZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,8 +64,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXFNpZ251cEVsZWN0b3JzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/SignUp/SignupForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXFNpZ251cEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/SignUp/SignupPoliticalParty.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXFNpZ251cFBvbGl0aWNhbFBhcnR5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/SignUp/View.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell1/Documents/GitHub/APPLICATION-DEVELOPMENT-1/Project/Automated-Voting-System/Automated Voting System/Views/SignUp/_Layout.cshtml]

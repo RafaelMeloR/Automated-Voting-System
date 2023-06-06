@@ -1,6 +1,7 @@
 ﻿using Automated_Voting_System.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Automated_Voting_System.Models;
 
 namespace Automated_Voting_System.Data
 {

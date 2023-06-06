@@ -9,13 +9,15 @@ namespace Automated_Voting_System.Controllers
 {
     public class SignUpController : Controller
     {
+        private readonly ApplicationDbContext context;
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         public SignUpController(UserManager<IdentityUser> userManager,
-                SignInManager<IdentityUser> signInManager) 
+                SignInManager<IdentityUser> signInManager, ApplicationDbContext context) 
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.context = context;
         }
 
         [AllowAnonymous]
@@ -25,15 +27,16 @@ namespace Automated_Voting_System.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult SignupElectors()
+        public IActionResult SignupForm()
         {
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SignupElectors(SignUpViewModel model)
+        public async Task<IActionResult> SignupForm(SignUpViewModel model)
         {
+            string role = model.role;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -41,10 +44,43 @@ namespace Automated_Voting_System.Controllers
 
             var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
 
-            var result = await userManager.CreateAsync(user, password: model.Password);
-
-            if (result.Succeeded)
+            var result = await userManager.CreateAsync(user, password: model.Password); //CREATING USER 
+            //ASSINIG ROLE
+            if (user == null)
             {
+                return NotFound();
+            }
+            await userManager.AddToRoleAsync(user, role);
+            //ASSING ROLE END
+
+            //SETTING UP THE OBJECTS TO INSERT INTO THE TABLES
+            var person = new Person
+            {
+                Name = model.Name,
+                LastName = model.LastName,
+                Phone = model.Phone, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
+                Gender = model.Gender,
+                Email = model.Email,
+                MarriedName = model.MarriedName,
+                bornDate = model.bornDate,
+                isActive = true,
+                UserId=user.Id,
+            };
+
+            var address = new Address
+            {
+                City = model.City,
+                ApartmentNumber=model.ApartmentNumber,
+                Thoroughfare = model.Thoroughfare,
+                PostalCode = model.PostalCode,
+                PersonId = person.Id, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
+            };
+
+            if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
+            {
+                context.Add(person);
+                context.Add(address);
+                await context.SaveChangesAsync();
                 await signInManager.SignInAsync(user, isPersistent: true);
                 return RedirectToAction("Index", "Home");
             }
@@ -55,77 +91,9 @@ namespace Automated_Voting_System.Controllers
                     ModelState.AddModelError(String.Empty, error.Description);
                 }
             } 
-
             
             return View(model);
-        }
-
-        [AllowAnonymous]
-        public IActionResult SignupCandidate()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignupCandidate(SignUpViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
-
-            var result = await userManager.CreateAsync(user, password: model.Password);
-
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(user, isPersistent: true);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(String.Empty, error.Description);
-                }
-            }
-            return View(model);
-        }
-
-        [AllowAnonymous]
-        public IActionResult SignupPoliticalParty()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignupPoliticalParty(SignUpViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
-
-            var result = await userManager.CreateAsync(user, password: model.Password);
-
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(user, isPersistent: true);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(String.Empty, error.Description);
-                }
-            }
-            return View(model);
-        }
+        } 
+   
     }
 }

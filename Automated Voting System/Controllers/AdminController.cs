@@ -22,7 +22,34 @@ namespace Automated_Voting_System.Controllers
             this.context = context;
         }
 
+        public async Task<IActionResult>deteleUser(string email)
+        {
+            var user = await context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            context.Remove(user);
+            //await userManager.DeleteAsync(user);
 
+            return RedirectToAction("ListUsersCrud", routeValues:
+                new { message = "Removed succesfully:" + email });
+        }
+        //--------------------------
+        [HttpGet]
+        [Authorize(Roles = Constants.Constants.AdminRole)]
+        public async Task<IActionResult> ListUsersCrud(string message = null)
+        {
+            var users = await context.Users.Select(u => new usersViewModel
+            {
+                Email = u.Email,
+            }).ToListAsync();
+
+            var model = new ListUsersViewModel();
+            model.Users = users;
+            model.Message = message;
+            return View(model);
+        }
 
         [HttpGet]
         [Authorize(Roles =Constants.Constants.AdminRole)]

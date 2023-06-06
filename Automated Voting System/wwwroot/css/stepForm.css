@@ -29,7 +29,7 @@
 
         .container .card .left-side {
             width: 35%;
-            background-color: #000;
+            background-color: #0C2D48;
             height: 100%;
             border-top-left-radius: 20px;
             border-bottom-left-radius: 20px;
@@ -51,7 +51,7 @@
         margin-top: 15px;
     }
     .steps-content h5 {
-        color:black
+        color:#0C2D48
     }
     .left-heading h5 {
         color: white
@@ -59,12 +59,12 @@
 
 .progress-bar {
     list-style: none;
-    color:#fff;
+    color: #fff;
     margin-top: 30px;
     font-size: 13px;
     font-weight: 700;
     counter-reset: container 0;
-    background-color:black;
+    background-color: #0C2D48;
 }
 
     .progress-bar li {
@@ -231,7 +231,7 @@ select {
     width: 100px;
     border: none;
     border-radius: 5px;
-    background-color: #000;
+    background-color: #0C2D48;
     font-size: 12px;
     color: #fff;
     cursor: pointer;

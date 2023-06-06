@@ -1,0 +1,23 @@
+﻿@model SignUpViewModel
+@using Automated_Voting_System.Constants;
+
+@if(Model.role==Constants.ElectorsRole)
+{
+    <partial name="SignupElectors"/>;
+}
+else if (Model.role == Constants.CandidatesRole)
+{
+        <partial name="SignupCandidate"/>;
+}
+else if (Model.role == Constants.PolitcalPartiesRole)
+{
+     <partial name="SignupPoliticalParty"/>;
+}
+
+@section Scripts
+    {
+    <link href="~/css/stepForm.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/js/stepForm.js"></script>
+
+}
