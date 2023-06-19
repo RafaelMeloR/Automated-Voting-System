@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\AVS_API.props" />
+</Project>
