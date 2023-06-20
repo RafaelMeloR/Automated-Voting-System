@@ -1,6 +1,7 @@
 ﻿using Automated_Voting_System.Data;
 using Automated_Voting_System.Entities;
 using Automated_Voting_System.Models;
+using AVS_API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -75,6 +76,8 @@ namespace Automated_Voting_System.Controllers
                 PostalCode = model.PostalCode,
                 PersonId = person.Id, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
             };
+
+            await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1)");
 
             if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
             {

@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -17,12 +19,91 @@ namespace AVS_Desktop
 {
     public static class utilities
     {
-        
+        public static class AVS
+        {
+            public static void DataTableToDataGrid(DataGrid grid,DataTable dt)
+            {  
+                grid.ItemsSource = dt.DefaultView;
+            }
+
+            /*public static void copyToTextBox(Object ob, DataRowView selected_row)
+            {
+                Admin objAdmin = new Admin();
+                Sales objSales = new Sales();
+                dynamic obj = null;
+                if (objAdmin.GetType() == ob.GetType())
+                {
+                    obj = (Admin)ob;
+                }
+                else if (objSales.GetType() == ob.GetType())
+                {
+                    obj = (Sales)ob;
+                }
+
+                if (selected_row != null)
+                {
+                    obj.ProductId.Text = selected_row[0].ToString();
+                    obj.producName.Text = selected_row[1].ToString();
+                    obj.Amount.Text = selected_row[2].ToString();
+                    obj.Price.Text = selected_row[3].ToString();
+                }
+
+            }*/
+        }
+
         public static class tools
         {
+            public static string GetIpAddress()
+            {
+                string ipAddress = string.Empty;
+
+                try
+                {
+                    string hostName = Dns.GetHostName();
+                    IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+
+                    foreach (IPAddress address in addresses)
+                    {
+                        if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            ipAddress = address.ToString();
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error getting IP address: " + ex.Message);
+                }
+
+                return ipAddress;
+            }
+        
+            public static string GetMacAddress()
+            {
+                string macAddress = string.Empty;
+
+                try
+                {
+                    foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+                    {
+                        if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                            nic.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                        {
+                            macAddress = nic.GetPhysicalAddress().ToString();
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error getting MAC address: " + ex.Message);
+                }
+
+                return macAddress;
+            }
 
             //<Label Name="LiveTimeLabel" Content="%TIME%" HorizontalAlignment="Left" Margin="557,248,0,0" VerticalAlignment="Top" Height="55" Width="186" FontSize="36" FontWeight="Bold" Foreground="Red" />
-
             public static void timer(Vote ob)
             {
                 DispatcherTimer LiveTime = new DispatcherTimer();

@@ -1,4 +1,5 @@
 ﻿using AVS_Desktop.Views;
+using AVS_Desktop.Views.Consults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,13 @@ namespace AVS_Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Vote n = new Vote();
-            n.Show();
+            ConsultsElectors ce=new ConsultsElectors();
+            ce.Show();
+            //ConsultsCandidates cc = new ConsultsCandidates();
+            //cc.Show();
+            //VoteLogin n = new VoteLogin();
+           // Vote n = new Vote();
+           // n.Show();
         }
     }
 }

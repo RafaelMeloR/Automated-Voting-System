@@ -52,3 +52,9 @@ C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voti
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\AVS_Desktop.csproj.CopyComplete
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\VoteLogin.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\VoteLogin.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ConsultsCandidates.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ConsultsCandidates.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ConsultsElectors.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ConsultsElectors.baml

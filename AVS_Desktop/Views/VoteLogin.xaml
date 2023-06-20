@@ -1,0 +1,17 @@
+﻿<Window x:Class="AVS_Desktop.Views.VoteLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVS_Desktop.Views"
+        mc:Ignorable="d"
+        Title="VoteLogin" WindowStyle="None" WindowState="Maximized" Height="450" Width="800">
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image HorizontalAlignment="Center" Height="290" Margin="0,53,0,0" VerticalAlignment="Top" Width="380" Source="/Views/logo.png"/>
+            <Label Content="Unique User ID" Margin="26,313,615,98" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="Uid" Margin="26,345,155,55" TextWrapping="Wrap" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Button x:Name="validate" Content="Validate" Margin="599,345,17,0" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="validate_Click" Height="37" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+</Window>

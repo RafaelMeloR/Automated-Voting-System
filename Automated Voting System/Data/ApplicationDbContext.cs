@@ -15,5 +15,6 @@ namespace Automated_Voting_System.Data
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Elector> Elector { get; set; }
         public DbSet<PoliticalParty> PoliticalParty { get; set; }
+        public DbSet<Votes> Votes { get; set; }
     }
 }

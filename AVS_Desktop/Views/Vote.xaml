@@ -3,17 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AVS_Desktop.Views"
         mc:Ignorable="d"
-        Title="Vote" Height="711" Width="1072">
+        Title="Vote" Height="711" Width="1072"  WindowStyle="None" WindowState="Maximized">
     <Grid>
-        <Canvas x:Name="voteCanvas">
-            <Label x:Name="title" Content="Presidential Candidates" Canvas.Left="32" Canvas.Top="40" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Label Name="LiveTimeLabel" Content="_____________________" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="186" FontSize="24" FontWeight="Bold" Foreground="Red" Canvas.Left="876" Canvas.Top="10" />
-            <WrapPanel x:Name="dock" HorizontalAlignment="Center" Height="560" Canvas.Top="135" VerticalAlignment="Center" Width="1072" />
-
-
-        </Canvas>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label x:Name="title" Content="Presidential Candidates" Canvas.Left="32" Canvas.Top="40" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Name="LiveTimeLabel" Content="_" HorizontalAlignment="Left" VerticalAlignment="Center" Height="55" Width="186" FontSize="24" FontWeight="Bold" Foreground="Red" Canvas.Left="876" Canvas.Top="10" />
+        <Button x:Name="vote" Content="VOTE" Margin="0,0,23,10" VerticalAlignment="Bottom" Height="51" BorderBrush="Black" Background="White" FontSize="18" FontWeight="Bold" Foreground="#FF00FF04" HorizontalAlignment="Right" Width="143" Click="vote_ClickAsync"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="2">
+            <WrapPanel x:Name="dock" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </ScrollViewer> 
 
     </Grid>
 </Window>

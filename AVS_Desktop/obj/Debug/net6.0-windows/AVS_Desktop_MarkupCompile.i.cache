@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\App.xaml
-2-878846815
+5-1946629858
 
-7-738661711
+221861776482
 210356358536
-MainWindow.xaml;Views\Vote.xaml;
+MainWindow.xaml;Views\Consults\ConsultsCandidates.xaml;Views\Consults\ConsultsElectors.xaml;Views\Vote.xaml;Views\VoteLogin.xaml;
 
 True
 

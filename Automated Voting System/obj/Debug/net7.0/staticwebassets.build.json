@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "PyDTRBY0gIFfLxPYW9z8O4J1kX2XjR2NH3JhVW7L1j0=",
+  "Hash": "SV5Gj7E2HEf0AAjlnZkzxofT0b3ZbrIiDxPhel8B4kI=",
   "Source": "Automated Voting System",
   "BasePath": "_content/Automated Voting System",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\Dell1\\Documents\\GitHub\\APPLICATION-DEVELOPMENT-1\\Project\\Automated-Voting-System\\AVS_API\\AVS_API.csproj",
+      "Version": 2,
+      "Source": "AVS_API",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "Automated Voting System\\wwwroot",
