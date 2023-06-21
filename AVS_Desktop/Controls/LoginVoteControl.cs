@@ -24,10 +24,11 @@ namespace AVS_Desktop.Controls
             }
             else
             {
-                obj.Close();
+                
                 VoteControl vc = new VoteControl();
                 vc.Open(guid);
-                
+                obj.Close();
+
             }
             return result;
 

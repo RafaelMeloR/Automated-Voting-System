@@ -2,6 +2,7 @@
 using AVS_Desktop.Views.Consults;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,16 +27,27 @@ namespace AVS_Desktop
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+         
+        private void close_Click(object sender, RoutedEventArgs e)
         {
-            ConsultsElectors ce=new ConsultsElectors();
-            ce.Show();
-            //ConsultsCandidates cc = new ConsultsCandidates();
-            //cc.Show();
-            //VoteLogin n = new VoteLogin();
-           // Vote n = new Vote();
-           // n.Show();
+            Close();
+        }
+
+        private void voteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VoteLogin v = new VoteLogin();
+            v.Show();
+            Close();
+        }
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+             Login login = new Login();
+              login.Show(); 
+              Close();
+            
+
+
         }
     }
 }

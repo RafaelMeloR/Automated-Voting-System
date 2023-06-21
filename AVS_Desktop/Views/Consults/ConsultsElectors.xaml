@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ConsultsCandidates" WindowState="Maximized" WindowStyle="None" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="dgCandidates" Background="White" BorderBrush="Black"
+        <DataGrid x:Name="dgElectors" Background="White" BorderBrush="Black"
                   HorizontalAlignment="Center" VerticalAlignment="Center"
                   Margin="40,89,40,37" />
         <Label Content="Consult Electors" HorizontalAlignment="Center"

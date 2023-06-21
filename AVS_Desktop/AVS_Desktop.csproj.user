@@ -2,7 +2,22 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\Admin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Candidates.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Consults\ConsultsCandidates.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CRUD\UsersCrud.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Electors.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\VoteLogin.xaml.cs">
@@ -10,10 +25,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Admin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Candidates.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Consults\ConsultsElectors.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Consults\ConsultsCandidates.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CRUD\UsersCrud.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Electors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Login.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\VoteLogin.xaml">

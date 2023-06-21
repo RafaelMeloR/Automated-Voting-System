@@ -5,6 +5,7 @@ using AVS_API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Automated_Voting_System.Controllers
 {
@@ -38,64 +39,30 @@ namespace Automated_Voting_System.Controllers
         public async Task<IActionResult> SignupForm(SignUpViewModel model)
         {
             string role = model.role;
+             
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
             var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
-
-            var result = await userManager.CreateAsync(user, password: model.Password); //CREATING USER 
-            //ASSINIG ROLE
-            if (user == null)
+            var gui=Guid.NewGuid().ToString();
+            var results = await utilities.sql.Set("INSERT INTO [dbo].[AspNetUsers]([Id],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],[EmailConfirmed],[PasswordHash],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount])\r\n VALUES\r\n ('" + gui + "','" + user + "','" + user + "' ,'" + user + "','" + user + "',0,'" + utilities.HashPassword(model.Password) + "',0,0,0,0)");
+            await utilities.sql.Set("Insert into AspNetUserRoles values('"+gui+"','"+role+"')");
+            await utilities.sql.Set("INSERT INTO Person  VALUES('" + model.Name + "','" + model.LastName + "','" + model.LastName + "','" + model.Gender + "','" + model.bornDate + "','" + model.Email + "','" + model.Phone + "',1,'" + gui + "','https://xsgames.co/randomusers/avatar.php?g=male')");
+            DataTable dt = utilities.sql.Get(" select max(id) from Person");
+            int max=0;
+            foreach (DataRow row in dt.Rows) 
             {
-                return NotFound();
+                max = (int )row[0];
             }
-            await userManager.AddToRoleAsync(user, role);
-            //ASSING ROLE END
-
-            //SETTING UP THE OBJECTS TO INSERT INTO THE TABLES
-            var person = new Person
-            {
-                Name = model.Name,
-                LastName = model.LastName,
-                Phone = model.Phone, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
-                Gender = model.Gender,
-                Email = model.Email,
-                MarriedName = model.MarriedName,
-                bornDate = model.bornDate,
-                isActive = true,
-                UserId=user.Id,
-            };
-
-            var address = new Address
-            {
-                City = model.City,
-                ApartmentNumber=model.ApartmentNumber,
-                Thoroughfare = model.Thoroughfare,
-                PostalCode = model.PostalCode,
-                PersonId = person.Id, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
-            };
-
+            await utilities.sql.Set("INSERT INTO[dbo].[Address]  VALUES('"+model.City+"', '"+ model.Thoroughfare + "', '"+ model.ApartmentNumber + "', '"+ model.City + "',"+max+" )");
             await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1)");
-
-            if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
-            {
-                context.Add(person);
-                context.Add(address);
                 await context.SaveChangesAsync();
                 await signInManager.SignInAsync(user, isPersistent: true);
                 return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(String.Empty, error.Description);
-                }
-            } 
+           
+           
             
-            return View(model);
         } 
    
     }

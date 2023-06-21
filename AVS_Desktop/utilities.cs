@@ -1,4 +1,6 @@
-﻿using AVS_Desktop.Views;
+﻿using AVS_Desktop.DataAccessLayer;
+using AVS_Desktop.Views;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -53,6 +56,52 @@ namespace AVS_Desktop
 
         public static class tools
         {
+            public static string HashPassword(string password)
+            { 
+                string plainTextPassword = password;
+                var passwordHasher = new PasswordHasher();
+                string hashedPassword = passwordHasher.HashPassword(plainTextPassword);  
+                return hashedPassword;
+            }
+            public static bool VerifyHashPassword(string user ,string password)
+            {
+                String pass = dal.get.Login(user);
+                 
+                bool hash=false;
+                var passwordHasher = new PasswordHasher();
+                string hashedPasswordFromDatabase = pass;
+                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(hashedPasswordFromDatabase, password);
+                if (passwordVerificationResult == PasswordVerificationResult.Success)
+                {
+                    hash = true; 
+                }
+                else if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                {
+                    hash=false; 
+                }
+                
+                return hash;
+            }
+            public static void OpenUrl(string target)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = target,
+                        UseShellExecute = true
+                    });
+                }
+                catch (System.ComponentModel.Win32Exception noBrowser)
+                {
+                    if (noBrowser.ErrorCode == -2147467259)
+                        MessageBox.Show(noBrowser.Message);
+                }
+                catch (System.Exception other)
+                {
+                    MessageBox.Show(other.Message);
+                }
+            }
             public static string GetIpAddress()
             {
                 string ipAddress = string.Empty;

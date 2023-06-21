@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AVS_API
@@ -6,7 +7,13 @@ namespace AVS_API
     public static class utilities
     {
 
-        
+        public static string HashPassword(string password)
+        {
+            string plainTextPassword = password;
+            var passwordHasher = new PasswordHasher();
+            string hashedPassword = passwordHasher.HashPassword(plainTextPassword);
+            return hashedPassword;
+        }
         public static  class sql
         {
             private static string GetConnectingString()

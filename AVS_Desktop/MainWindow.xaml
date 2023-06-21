@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVS_Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="418,137,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="close" Content="X" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="42" Width="83" Background="White" BorderBrush="White" Foreground="Red" FontSize="22" FontWeight="ExtraLight" Click="close_Click"/>
 
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="430" Width="600">
+            <Image HorizontalAlignment="Center" Height="290" Margin="0,53,0,0" VerticalAlignment="Top" Width="380"  Source="/logo.png"/>
+            <Button x:Name="voteButton" Content="Vote" Margin="110,330,360,30"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Black" Background="White" FontWeight="Bold" FontSize="24" Click="voteButton_Click"  Height="70"  Width="130" />
+            <Button x:Name="loginButton" Content="Login" Margin="348,330,110,30"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Black" Background="White" FontWeight="Bold" FontSize="24"  Height="70"  Width="130" Click="loginButton_Click"  />
+        </Grid>
     </Grid>
 </Window>

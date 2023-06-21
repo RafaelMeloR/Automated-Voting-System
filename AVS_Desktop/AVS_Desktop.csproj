@@ -8,17 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logo.png" />
     <None Remove="Views\logo.png" />
     <None Remove="Views\pngwing.com.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.7" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\profile.png" />
+    <Resource Include="logo.png" />
     <Resource Include="Views\logo.png" />
   </ItemGroup>
 

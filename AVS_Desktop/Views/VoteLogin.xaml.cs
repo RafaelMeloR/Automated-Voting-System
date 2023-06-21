@@ -13,7 +13,7 @@ namespace AVS_Desktop.Views
             InitializeComponent();
         }
 
-        private void validate_Click(object sender, RoutedEventArgs e)
+        private void Validate_Click(object sender, RoutedEventArgs e)
         {
             if (Uid.Text == string.Empty)
             {

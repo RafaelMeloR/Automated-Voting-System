@@ -24,8 +24,8 @@ namespace AVS_Desktop.Views.Consults
         public ConsultsElectors()
         {
             InitializeComponent();
-           ConsultCandidatesControl ccc= new ConsultCandidatesControl();
-            ccc.showAllCandidates(dgCandidates);
+           ConsultElectorsControl cec= new ConsultElectorsControl();
+            cec.showAllElectors(dgElectors);
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -35,8 +35,8 @@ namespace AVS_Desktop.Views.Consults
 
         private void search_KeyUp(object sender, KeyEventArgs e)
         {
-            ConsultCandidatesControl ccc= new ConsultCandidatesControl();
-            ccc.showCandidateByName(dgCandidates,search.Text);
+            ConsultElectorsControl cec = new ConsultElectorsControl();
+            cec.showElectorsByName(dgElectors,search.Text); 
         }
     }
 }
