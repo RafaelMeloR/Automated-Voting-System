@@ -1,17 +1,7 @@
 ﻿using AVS_Desktop.Controls.Cruds;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AVS_Desktop.Views.CRUD
 {
@@ -23,7 +13,8 @@ namespace AVS_Desktop.Views.CRUD
         public UsersCrud()
         {
             InitializeComponent();
-            UsersCrudControl.fillGrid(this);
+            _ = UsersCrudControl.fillGrid(this);
+            UsersCrudControl.fillComboPolitticalParty(this);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -33,31 +24,42 @@ namespace AVS_Desktop.Views.CRUD
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            if (electorsRB.IsChecked==true)
-            {
-                electors.Visibility = Visibility.Visible;
-                electoralPosition.Visibility = Visibility.Hidden;
-                epLabel.Visibility = Visibility.Hidden;
-            }
+            UsersCrudControl.isChecked(this);
+        } 
+        private void usersGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            UsersCrudControl.CopyFromGridToTextbox(this);
+        }
+        private void updateBT_Click(object sender, RoutedEventArgs e)
+        {
+            if(UsersCrudControl.validateForm(this))
+                _ = UsersCrudControl.Update(this); 
+
+        } 
+        private void createBT_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsersCrudControl.validateForm(this))
+                _ = UsersCrudControl.Insert(this); 
         }
 
-        private void candidatesRB_Checked(object sender, RoutedEventArgs e)
+        private void deleteBT_Click(object sender, RoutedEventArgs e)
         {
-            if (candidatesRB.IsChecked == true)
-            {
-                electors.Visibility = Visibility.Visible;
-                electoralPosition.Visibility = Visibility.Visible;
-                epLabel.Visibility = Visibility.Visible;
-            }
+            UsersCrudControl.Delete(this); 
         }
 
-        private void adminRB_Checked(object sender, RoutedEventArgs e)
+        private void search_KeyUp(object sender, KeyEventArgs e)
         {
-            if (adminRB.IsChecked == true)
-            {
-                electors.Visibility = Visibility.Hidden;
-                electoralPosition.Visibility = Visibility.Hidden;
-            }
+            UsersCrudControl.showPeopleByName(this);
+        }
+
+        private void phone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            utilities.tools.numberValidation(e);
+        }
+
+        private async void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            UsersCrudControl.fillGrid(this);
         }
     }
 }

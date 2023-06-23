@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label x:Name="title" Content="Presidential Candidates" Canvas.Left="32" Canvas.Top="40" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="title" Content=" Candidates" Canvas.Left="32" Canvas.Top="40" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Name="LiveTimeLabel" Content="_" HorizontalAlignment="Left" VerticalAlignment="Center" Height="55" Width="186" FontSize="24" FontWeight="Bold" Foreground="Red" Canvas.Left="876" Canvas.Top="10" />
         <Button x:Name="vote" Content="VOTE" Margin="0,0,23,10" VerticalAlignment="Bottom" Height="51" BorderBrush="Black" Background="White" FontSize="18" FontWeight="Bold" Foreground="#FF00FF04" HorizontalAlignment="Right" Width="143" Click="vote_ClickAsync"/>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="2">

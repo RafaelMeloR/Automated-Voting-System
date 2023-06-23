@@ -55,7 +55,7 @@ namespace Automated_Voting_System.Controllers
             {
                 max = (int )row[0];
             }
-            await utilities.sql.Set("INSERT INTO[dbo].[Address]  VALUES('"+model.City+"', '"+ model.Thoroughfare + "', '"+ model.ApartmentNumber + "', '"+ model.City + "',"+max+" )");
+            await utilities.sql.Set("INSERT INTO[dbo].[Address]  VALUES('"+model.PostalCode+"', '"+ model.Thoroughfare + "', '"+ model.ApartmentNumber + "', '"+ model.City + "',"+max+" )");
             await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1)");
                 await context.SaveChangesAsync();
                 await signInManager.SignInAsync(user, isPersistent: true);

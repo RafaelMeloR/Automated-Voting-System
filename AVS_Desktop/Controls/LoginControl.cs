@@ -19,7 +19,7 @@ namespace AVS_Desktop.Controls
             bool auth = utilities.tools.VerifyHashPassword(obj.user.Text, obj.password.Password);
             if (auth)
             {
-                String role = dal.get.SelectRoleId(obj.user.Text);
+                String role = dal.get.SelectRoleIdFromUsers(obj.user.Text);
                 String roleName = dal.get.SelectRoleName(role);
 
                 if (roleName == "admin")
@@ -29,7 +29,7 @@ namespace AVS_Desktop.Controls
                 }
                 else if (roleName == "candidates")
                 {
-                    Candidates candidates = new Candidates();
+                    Candidate candidates = new Candidate();
                     candidates.Show();
                 }
                 else if (roleName == "electors")

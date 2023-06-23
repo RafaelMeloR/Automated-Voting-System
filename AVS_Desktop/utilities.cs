@@ -56,6 +56,20 @@ namespace AVS_Desktop
 
         public static class tools
         {
+            public static bool ValidateInputs(params TextBox[] textBoxes)
+            {
+                foreach (TextBox textBox in textBoxes)
+                {
+                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        MessageBox.Show($"Please enter a value in {textBox.Name}.");
+                        textBox.Focus();
+                        return false;
+                    }
+                }
+
+                return true;
+            }
             public static string HashPassword(string password)
             { 
                 string plainTextPassword = password;
@@ -192,12 +206,9 @@ namespace AVS_Desktop
 
                 }
             }
-
-            //Threading for handling database operations
-            public static async 
-            //Threading for handling database operations
-            Task
-            Set(string query)
+             
+            public static async  
+            Task Set(string query)
             {
                 try
                 {
@@ -209,14 +220,13 @@ namespace AVS_Desktop
                     using (cmd = new SqlCommand(query, con))
                     {
                         await cmd.ExecuteNonQueryAsync();
-                    }
-                    MessageBox.Show("Executed Successfully");
+                    } 
                     con.Close();
                 }
                 catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
-                }
+                } 
             }
 
             public static DataTable Get(string query)

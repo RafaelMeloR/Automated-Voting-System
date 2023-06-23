@@ -29,8 +29,7 @@ namespace AVS_Desktop.Controls
         {
             return voteSelection;
         }
-
-
+         
         public static List<CandidateViewModel> GetCandidates()
         {
             DataTable dt = dal.get.SelectCandidates();
@@ -45,7 +44,7 @@ namespace AVS_Desktop.Controls
                     candidate.Gender = (string) row[4];
                     candidate.bornDate = (DateTime)row[5];
                     candidate.Email = (string) row[6];
-                    candidate.Phone = (int)row[7];
+                    candidate.Phone =(string) row[7];
                     candidate.isActive = (bool)row[8];
                     candidate.UserId = (string) row[9];
                     if (row[10] == null)

@@ -17,9 +17,9 @@ namespace AVS_Desktop.Views
     /// <summary>
     /// Interaction logic for Candidates.xaml
     /// </summary>
-    public partial class Candidates : Window
+    public partial class Candidate : Window
     {
-        public Candidates()
+        public Candidate()
         {
             InitializeComponent();
         }

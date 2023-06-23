@@ -17,7 +17,7 @@ namespace AVS_Desktop.ViewModels
         public string Gender { get; set; } 
         public DateTime bornDate { get; set; } 
         public string Email { get; set; } 
-        public int Phone { get; set; } 
+        public string Phone { get; set; } 
         public bool isActive { get; set; }
         public string UserId { get; set; } 
         public string UserName { get; set; }
