@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AVS_Desktop.Views.CRUD"
-        xmlns:SqlClient="clr-namespace:System.Data.SqlClient;assembly=System.Data.SqlClient" x:Class="AVS_Desktop.Views.CRUD.UsersCrud"
+    x:Class="AVS_Desktop.Views.CRUD.UsersCrud"
         mc:Ignorable="d"
         Title="UsersCrud" WindowState="Maximized"  WindowStyle="None" Height="800" Width="1200">
     <Grid>

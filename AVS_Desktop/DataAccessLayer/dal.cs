@@ -14,6 +14,18 @@ namespace AVS_Desktop.DataAccessLayer
     {
         public class set
         {
+            public static async Task DeletePoliticalParty(Models.PoliticalParty politicalParty)
+            {
+                await utilities.sql.Set("Delete from [dbo].[PoliticalParty] where Id=" + politicalParty.Id + " ");
+            }
+            public static async Task UpdatePoliticalParty(Models.PoliticalParty politicalParty)
+            {
+                await utilities.sql.Set("Update [dbo].[PoliticalParty] set Name = '" + politicalParty.Name + "' where Id = "+politicalParty.Id+"");
+            }
+            public static async Task InsertPoliticalParty(Models.PoliticalParty politicalParty)
+            {
+               await utilities.sql.Set("INSERT INTO [dbo].[PoliticalParty]   VALUES('" + politicalParty.Name + "')");
+            }
             public static async Task InserIntoVoting(Guid idVote, String IdElector)
             {
                 await utilities.sql.Set("INSERT INTO [dbo].[Voting] VALUES ('" + idVote + "','" + IdElector + "','" + DateTime.Now + "',1)");
@@ -139,6 +151,30 @@ namespace AVS_Desktop.DataAccessLayer
 
         public static class get
         {
+            public static int selectIdPoliticalPartyByName(PoliticalParty politicalParty)
+            {
+                int id = 0;
+                DataTable dt = utilities.sql.Get("SELECT Id FROM PoliticalParty Where Id="+politicalParty.Name+"");
+                foreach (DataRow row in dt.Rows)
+                {
+                    id = (int) row[0];
+                }
+                return id;
+            }
+            public static DataTable selectPoliticalPartyByName(PoliticalParty politicalParty)
+            {
+                return utilities.sql.Get("SELECT * FROM PoliticalParty Where Name like '%" + politicalParty.Name + "%';");  
+            }
+            public static int selectLastIdInsertedPoliticalParty()
+            {
+                int id = 0;
+                DataTable dt = utilities.sql.Get("SELECT TOP 1 Id FROM PoliticalParty ORDER BY Id DESC");
+                foreach (DataRow row in dt.Rows)
+                {
+                    id = (int)row[0];
+                }
+                return id;
+            }
             public static DataTable selectPoliticalsParties()
             {
                 return utilities.sql.Get("Select * from PoliticalParty");

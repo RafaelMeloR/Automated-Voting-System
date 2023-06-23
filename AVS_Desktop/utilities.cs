@@ -70,6 +70,18 @@ namespace AVS_Desktop
 
                 return true;
             }
+            public static bool ValidateInput(TextBox textBox)
+            {
+                 
+                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        MessageBox.Show($"Please enter a value in {textBox.Name}.");
+                        textBox.Focus();
+                        return false;
+                    } 
+
+                return true;
+            }
             public static string HashPassword(string password)
             { 
                 string plainTextPassword = password;

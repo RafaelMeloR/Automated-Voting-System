@@ -20,6 +20,9 @@
     <Compile Update="Views\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CRUD\PoliticalPartyCrud.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\VoteLogin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +47,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CRUD\PoliticalPartyCrud.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\VoteLogin.xaml">

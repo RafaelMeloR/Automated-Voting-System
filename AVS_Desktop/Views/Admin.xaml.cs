@@ -48,5 +48,11 @@ namespace AVS_Desktop.Views
             UsersCrud usersCrud = new UsersCrud();
             usersCrud.Show();
         }
+
+        private void RibbonSplitMenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            PoliticalPartyCrud politicalPartyCrud = new PoliticalPartyCrud();
+            politicalPartyCrud.Show();
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿<Window x:Class="AVS_Desktop.Views.PoliticalPartyCrud"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVS_Desktop.Views"
+        mc:Ignorable="d"
+          Title="UsersCrud" WindowState="Maximized"  WindowStyle="None" Height="800" Width="1200">
+    <Grid>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" FontSize="18" Click="Button_Click"/>
+        <DataGrid x:Name="PartiesGrid"   Margin="44,160,39,83" MouseLeftButtonUp="PartiesGrid_MouseLeftButtonUp"/>
+        <Label Content="CRUD Politicals Parties" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="280" FontWeight="Bold" FontSize="36"/>
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="105,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" FontSize="18" AutomationProperties.IsRequiredForForm="True"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="44,115,0,0" VerticalAlignment="Top" Width="59" HorizontalContentAlignment="Right" FontSize="18"/>
+        <TextBox x:Name="search" Margin="0,115,63,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" FontSize="18" PreviewTextInput="search_PreviewTextInput"   />
+        <Label Content="Search" Margin="0,111,192,0" VerticalAlignment="Top" FontSize="18" HorizontalAlignment="Right" Width="63"/>
+        <Button x:Name="createBT" Content="Create" HorizontalAlignment="Left" Margin="587,104,0,0" VerticalAlignment="Top" Height="41" Width="72" Background="White" BorderBrush="Black"  FontWeight="Bold" FontSize="18" Click="createBT_Click"/>
+        <Button x:Name="updateBT" Content="Update" HorizontalAlignment="Left" Margin="703,104,0,0" VerticalAlignment="Top" Height="41" Width="72" Background="White" BorderBrush="Black" FontWeight="Bold" FontSize="18" Click="updateBT_Click"/>
+        <Button x:Name="deleteBT" Content="Delete" HorizontalAlignment="Left" Margin="829,104,0,0" VerticalAlignment="Top" Height="41" Width="76" Background="White" BorderBrush="Black" FontWeight="Bold" FontSize="18" Click="deleteBT_Click"/>
+        <Button x:Name="refresh" Content="Refresh" Margin="0,84,63,0" VerticalAlignment="Top" Height="26" Background="White" BorderBrush="Black" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" Width="64" Click="refresh_Click"/>
+
+    </Grid>
+</Window>
