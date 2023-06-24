@@ -3,6 +3,7 @@ using AVS_Desktop.Models;
 using AVS_Desktop.Views;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.DirectoryServices;
 using System.Threading.Tasks;
@@ -71,14 +72,14 @@ namespace AVS_Desktop.DataAccessLayer
                 await utilities.sql.Set("INSERT INTO [dbo].[AspNetUsers]([Id],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],[EmailConfirmed],[PasswordHash],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount])\r\n VALUES\r\n ('" + user.Id + "','" + user.UserName + "','" + user.NormalizedUserName + "' ,'" + user.Email + "','" + user.Email + "',0,'" + user.PasswordHash + "',0,0,0,0)");
                 await utilities.sql.Set("Insert into AspNetUserRoles values('" + user.Id + "','" + user.RoleId + "')");
                 await utilities.sql.Set("INSERT INTO Person  VALUES('" + person.Name + "','" + person.LastName + "','" + person.LastName + "','" + person.Gender + "','" + person.bornDate + "','" + person.Email + "','" + person.Phone + "',1,'" + person.UserId + "','https://xsgames.co/randomusers/avatar.php?g=male')");
-                DataTable dt = utilities.sql.Get(" select max(id) from Person");
                 int max = await get.getLastIdInserted();
                 await utilities.sql.Set("INSERT INTO[dbo].[Address]  VALUES('" + address.PostalCode + "', '" + address.Thoroughfare + "', '" + address.ApartmentNumber + "', '" + address.City + "'," + max + " )");
-                await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1)");
             }
             public static async Task CreateElector(Elector elector)
             {
-                await utilities.sql.Set("INSERT INTO [dbo].[Elector]\r\n VALUES\r\n ('"+elector.id+"'\r\n,"+elector.PersonId+"\r\n, '"+elector.ElectoralMunicipality+"'\r\n,  '"+elector.ElectoralDistrict+"'\r\n, "+elector.isActive+")");
+                int max = await get.getLastIdInserted();
+                await utilities.sql.Set("INSERT INTO [dbo].[Elector]\r\n VALUES\r\n ('"+elector.id+"'\r\n,"+elector.PersonId+"\r\n, '"+elector.ElectoralMunicipality+"'\r\n,  '"+elector.ElectoralDistrict+"'\r\n, 1)");
+                await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1,'" + utilities.tools.HashPassword(max.ToString()) + "')");
             }
 
             public static async Task createCandidate(Candidate candidate)
@@ -151,6 +152,7 @@ namespace AVS_Desktop.DataAccessLayer
 
         public static class get
         {
+
             public static int selectIdPoliticalPartyByName(PoliticalParty politicalParty)
             {
                 int id = 0;
@@ -225,6 +227,14 @@ namespace AVS_Desktop.DataAccessLayer
             {
                return utilities.sql.Get("SELECT * from PoolElectors where IdElectors ='" + guid + "' and isActive=1;");
             }
+            public static DataTable SelectPoolElector(String hash)
+            {
+                return utilities.sql.Get("SELECT * from PoolElectors where Hash ='" + hash + "';");
+            }
+            public static DataTable SelectAllHashPoolElector()
+            {
+                return utilities.sql.Get("SELECT Hash from PoolElectors;");
+            }
 
             public static String Login(String user) 
             {
@@ -289,6 +299,17 @@ namespace AVS_Desktop.DataAccessLayer
                 return id;
             }
 
+            public static string SelectNamePersonById(int id)
+            {
+                string name = string.Empty;
+                DataTable dt = utilities.sql.Get("SELECT Name, lastName FROM Person where Id = " + id + "");
+                foreach (DataRow row in dt.Rows)
+                {
+                    name = row[0].ToString()+" "+row[1].ToString(); 
+                }
+                return name;
+            }
+
             public static Elector SelectElectorInformation(int userId)
             {
                 DataTable dt = utilities.sql.Get("SELECT * FROM Elector where PersonId=" + userId + "");
@@ -319,6 +340,42 @@ namespace AVS_Desktop.DataAccessLayer
                     candidate.PersonId = (int)row[6];
                 }
                 return await Task.FromResult(candidate);
+            }
+
+            public static async Task<List<Candidate>> SelectAllCandidateformation()
+            {
+                DataTable dt = utilities.sql.Get("SELECT * FROM Candidate");
+                List<Candidate> candidates = new List<Candidate>();               
+                foreach (DataRow row in dt.Rows)
+                {
+                    Candidate candidate = new Candidate();
+                    candidate.ElectoralMunicipality = row[3].ToString();
+                    candidate.ElectoralDistrict = row[4].ToString();
+                    candidate.PoliticalPartyId = (int)row[1];
+                    candidate.Id = (Guid)row[0];
+                    candidate.ElectoralPosition = row[2].ToString();
+                    candidate.isActive = (bool)row[5];
+                    candidate.PersonId = (int)row[6];
+                    candidates.Add(candidate);
+                }
+                return await Task.FromResult(candidates);
+            }
+
+            public static List<CountVotes> CountVotes(List<Candidate> candidates)
+            {
+                List<CountVotes> list=new List<CountVotes>();
+                foreach (var item in candidates)
+                {
+                    DataTable dt = utilities.sql.Get(" select Vote.CandidateId,COUNT(vote.CandidateId) as Votes from vote where CandidateId='" + item.Id + "' group by Vote.CandidateId");
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        CountVotes countVotes = new CountVotes();
+                        countVotes.CandidateId= row[0].ToString();
+                        countVotes.Count=(int) row[1];
+                        list.Add(countVotes);
+                    }
+                }
+                return list;
             }
 
             public static async Task<DataTable> SelectPersonUserID(string email)

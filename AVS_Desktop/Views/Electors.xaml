@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Electors" WindowState="Maximized" WindowStyle="None" Height="450" Width="800">
     <Grid>
-        <Menu Margin="0,0,0,404" Background="White" BorderBrush="Black" Foreground="Black">
+        <Menu Margin="0,0,0,404" Background="White" BorderBrush="Black" Foreground="Black" FontSize="18">
+            <RibbonSplitMenuItem Header="Info" Click="RibbonSplitMenuItem_Click_1"/>
             <RibbonSplitMenuItem Header="Exit" Click="RibbonSplitMenuItem_Click" FontSize="18"/>
         </Menu>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="430" Width="600">

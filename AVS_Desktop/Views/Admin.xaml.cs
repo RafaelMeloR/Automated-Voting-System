@@ -1,4 +1,6 @@
-﻿using AVS_Desktop.Views.Consults;
+﻿using AVS_Desktop.Controls.Consults;
+using AVS_Desktop.Models;
+using AVS_Desktop.Views.Consults;
 using AVS_Desktop.Views.CRUD;
 using System;
 using System.Collections.Generic;
@@ -53,6 +55,11 @@ namespace AVS_Desktop.Views
         {
             PoliticalPartyCrud politicalPartyCrud = new PoliticalPartyCrud();
             politicalPartyCrud.Show();
+        }
+
+        private void RibbonSplitMenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            _ = ElectionsResultsControl.CountVotesAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AVS_Desktop.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace AVS_Desktop.Views
         private void RibbonSplitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void RibbonSplitMenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            ElectorControl.getInformation();
         }
     }
 }

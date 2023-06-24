@@ -12,7 +12,7 @@ namespace AVS_Desktop.Controls
     {
      
         static List<CandidateViewModel> CandidatesList = new List<CandidateViewModel>();
-        private Guid voteSelection;
+        private static Guid voteSelection;
         public static string IdElector { get; set; }
         public void Open(string id)
         {

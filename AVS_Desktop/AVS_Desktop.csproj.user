@@ -8,7 +8,13 @@
     <Compile Update="Views\Candidates.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Consults\CanadidateInformation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Consults\ConsultsCandidates.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Consults\ElectorInformation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\CRUD\UsersCrud.xaml.cs">
@@ -34,10 +40,16 @@
     <Page Update="Views\Candidates.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Consults\CanadidateInformation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Consults\ConsultsElectors.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Consults\ConsultsCandidates.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Consults\ElectorInformation.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\CRUD\UsersCrud.xaml">

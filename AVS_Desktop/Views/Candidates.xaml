@@ -7,6 +7,7 @@
         Title="Candidates" WindowState="Maximized" WindowStyle="None"    Height="450" Width="800">
     <Grid>
         <Menu Margin="0,0,0,404" Background="White" BorderBrush="Black" Foreground="Black">
+            <RibbonSplitMenuItem Header="Info" FontSize="18" Click="RibbonSplitMenuItem_Click_1"/>
             <RibbonSplitMenuItem Header="Exit" Click="RibbonSplitMenuItem_Click" FontSize="18"/>
         </Menu>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="430" Width="600">

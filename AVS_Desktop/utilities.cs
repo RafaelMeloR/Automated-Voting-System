@@ -108,6 +108,23 @@ namespace AVS_Desktop
                 
                 return hash;
             }
+            public static bool VerifyHash(string hashed, string id)
+            {
+                 
+                bool hash = false;
+                var passwordHasher = new PasswordHasher(); 
+                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(hashed, id);
+                if (passwordVerificationResult == PasswordVerificationResult.Success)
+                {
+                    hash = true;
+                }
+                else if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                {
+                    hash = false;
+                }
+
+                return hash;
+            }
             public static void OpenUrl(string target)
             {
                 try

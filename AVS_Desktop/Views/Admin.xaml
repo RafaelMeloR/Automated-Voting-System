@@ -15,6 +15,7 @@
             </RibbonSplitMenuItem>
             <RibbonSplitMenuItem Header="Consults" Background="White" FontSize="18" BorderBrush="White">
                 <RibbonSplitMenuItem Header="Electors" Click="RibbonSplitMenuItem_Click_1" />
+                <RibbonSplitMenuItem Header="Results" Click="RibbonSplitMenuItem_Click_5"/>
                 <RibbonSplitMenuItem Header="Candidates" Click="RibbonSplitMenuItem_Click_2"/>
             </RibbonSplitMenuItem>
             <RibbonSplitMenuItem Header="Exit" Click="RibbonSplitMenuItem_Click" FontSize="18"/>

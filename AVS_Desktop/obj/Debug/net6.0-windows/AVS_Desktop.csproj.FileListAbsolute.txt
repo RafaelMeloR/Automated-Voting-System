@@ -103,3 +103,7 @@ C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voti
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\CRUD\UsersCrud.baml
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\CRUD\PoliticalPartyCrud.g.cs
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\CRUD\PoliticalPartyCrud.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectorInformation.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectorInformation.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\CanadidateInformation.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\CanadidateInformation.baml

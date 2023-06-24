@@ -14,11 +14,13 @@ namespace AVS_Desktop.Controls
 {
     internal class LoginControl
     {
+        public  static string sesion;
         public void Login(Login obj)
         {
             bool auth = utilities.tools.VerifyHashPassword(obj.user.Text, obj.password.Password);
             if (auth)
             {
+                sesion = obj.user.Text;
                 String role = dal.get.SelectRoleIdFromUsers(obj.user.Text);
                 String roleName = dal.get.SelectRoleName(role);
 
