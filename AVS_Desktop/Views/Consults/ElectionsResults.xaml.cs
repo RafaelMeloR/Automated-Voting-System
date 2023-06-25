@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AVS_Desktop.Controls.Consults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,13 @@ namespace AVS_Desktop.Views.Consults
         public ElectionsResults()
         {
             InitializeComponent();
+            _ = ElectionsResultsControl.CountVotesAsync(this);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
+ 
     }
 }

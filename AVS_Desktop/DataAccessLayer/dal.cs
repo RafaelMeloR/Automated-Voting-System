@@ -44,6 +44,17 @@ namespace AVS_Desktop.DataAccessLayer
             {
                 await utilities.sql.Set("UPDATE [dbo].[Person] SET [Name] = '"+person.Name+"'\r\n      ,[LastName] = '"+person.LastName+"'\r\n      ,[Gender] = '"+person.Gender+"'\r\n      ,[bornDate] = '"+person.bornDate+"'\r\n      ,[Email] = '"+person.Email+"'\r\n      ,[Phone] = '"+person.Phone+"'\r\n WHERE id="+person.Id+"");
             }
+            public static async Task Validate(int Id, string role, string guid  )
+            {
+                await utilities.sql.Set("UPDATE [dbo].[Person] SET [isActive] = 1 WHERE id=" + Id + "");
+                if (role == "electors")
+                {
+                    await utilities.sql.Set("UPDATE [dbo].[Elector] SET [isActive] =1 WHERE personId=" + Id + "");
+                    await utilities.sql.Set("Update PoolElectors set isActive=1 where IdElectors='" + guid + "'");
+                }
+                else if (role == "candidates")
+                    await utilities.sql.Set("UPDATE [dbo].[Candidate] SET [isActive] =1 WHERE personId=" + Id + "");
+            }
             public static async Task UpdateAddress(Address address)
             {
                 await utilities.sql.Set("UPDATE [dbo].[Address]\r\n   SET [PostalCode] = '"+address.PostalCode+"'\r\n      ,[Thoroughfare] = '"+address.Thoroughfare+"'\r\n      ,[ApartmentNumber] = '"+address.ApartmentNumber+"'\r\n      ,[City] = '"+address.City+"'\r\n WHERE personId="+address.PersonId+"");
@@ -79,7 +90,7 @@ namespace AVS_Desktop.DataAccessLayer
             {
                 int max = await get.getLastIdInserted();
                 await utilities.sql.Set("INSERT INTO [dbo].[Elector]\r\n VALUES\r\n ('"+elector.id+"'\r\n,"+elector.PersonId+"\r\n, '"+elector.ElectoralMunicipality+"'\r\n,  '"+elector.ElectoralDistrict+"'\r\n, 0)");
-                await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1,'" + utilities.tools.HashPassword(max.ToString()) + "')");
+                await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',0,'" + utilities.tools.HashPassword(max.ToString()) + "')");
             }
 
             public static async Task createCandidate(Candidate candidate)
@@ -370,7 +381,7 @@ namespace AVS_Desktop.DataAccessLayer
                 }
                 return await Task.FromResult(candidates);
             }
-
+             
             public static List<CountVotes> CountVotes(List<Candidate> candidates)
             {
                 List<CountVotes> list=new List<CountVotes>();
@@ -386,7 +397,7 @@ namespace AVS_Desktop.DataAccessLayer
                     }
                 }
                 return list;
-            }
+            } 
 
             public static async Task<DataTable> SelectPersonUserID(string email)
             {

@@ -37,7 +37,7 @@ namespace AVS_Desktop.Views
 
         private void ValidateBT_Click(object sender, RoutedEventArgs e)
         {
-
+            usersValidationControl.Validate(this);
         }
 
         private void usersGrid_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)

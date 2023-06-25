@@ -58,8 +58,7 @@ namespace AVS_Desktop.Views
         }
 
         private void RibbonSplitMenuItem_Click_5(object sender, RoutedEventArgs e)
-        {
-            _ = ElectionsResultsControl.CountVotesAsync();
+        { 
             ElectionsResults electionsResults = new ElectionsResults();
             electionsResults.Show();
         }

@@ -1,21 +1,18 @@
 ﻿using AVS_Desktop.DataAccessLayer;
 using AVS_Desktop.Models;
 using AVS_Desktop.Views;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows; 
+using System.Windows;
 
 namespace AVS_Desktop.Controls
 {
     public class usersValidationControl
     {
         private static int PersonId;
-
+        private static string role;
+        private static string sesion = LoginControl.sesion;
+        
         public static bool fillGrid(usersValidation obj)
         {
             DataTable dt = dal.get.SelectPeopleValidation();
@@ -68,6 +65,7 @@ namespace AVS_Desktop.Controls
         {
             if (obj.electorsRB.IsChecked == true)
             {
+                role = "electors";
                 obj.electors.Visibility = Visibility.Visible;
                 obj.electors.Visibility = Visibility.Visible;
                 obj.electoralPosition.Visibility = Visibility.Hidden;
@@ -77,6 +75,7 @@ namespace AVS_Desktop.Controls
             }
             else if (obj.candidatesRB.IsChecked == true)
             {
+                role = "candidates";
                 obj.electors.Visibility = Visibility.Visible;
                 obj.electors.Visibility = Visibility.Visible;
                 obj.electoralPosition.Visibility = Visibility.Visible;
@@ -84,57 +83,12 @@ namespace AVS_Desktop.Controls
                 obj.politicalParty.Visibility = Visibility.Visible;
                 obj.policalpartyLabel.Visibility = Visibility.Visible;
             } 
-        }
-        public static async Task Insert(usersValidation obj)
-        {
-            Person person = new Person();  
-
-            person.Name = obj.name.Text;
-            person.LastName = obj.lastname.Text;
-            person.Gender = obj.gender.Text;
-            person.bornDate = (DateTime)obj.birthday.SelectedDate;
-            person.Email = obj.email.Text;
-            person.Phone = obj.phone.Text; 
-
-            DataTable dt = await dal.get.SelectPersonUserID(obj.email.Text);
-            if (dt != null)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    person.Id = (int)row[1]; 
-                }
-            }
-
-            _ = dal.set.UpdatePerson(person);   
-             
-            if (obj.electorsRB.IsChecked == true)
-            {
-                Elector elector = new Elector();
-                elector.ElectoralDistrict = obj.electoralditrict.Text;
-                elector.ElectoralMunicipality = obj.electoralmunicipality.Text;
-                elector.PersonId = person.Id; 
-
-                _ = dal.set.UpdateElector(elector);
-            }
-            else if (obj.candidatesRB.IsChecked == true)
-            { 
-                Models.Candidate candidate = new Models.Candidate();
-                candidate.ElectoralDistrict = obj.electoralditrict.Text;
-                candidate.ElectoralMunicipality = obj.electoralmunicipality.Text;
-                candidate.ElectoralPosition = obj.electoralPosition.Text;
-                candidate.PersonId = person.Id;
-                _ = dal.set.UpdateCandidate(candidate);
-            }
-           
-            clean(obj);
-        }
-
+        } 
         public static void showPeopleByName(usersValidation obj)
         {
             utilities.AVS.DataTableToDataGrid(obj.usersGrid, dal.get.SelectPeopleByNameValidation(obj.search.Text));
 
-        }
-
+        } 
         public static void clean(usersValidation obj)
         {
             obj.name.Text = string.Empty;
@@ -152,5 +106,27 @@ namespace AVS_Desktop.Controls
             MessageBox.Show("Operation completed");
             fillGrid(obj);
         }
+
+        public static void Validate(usersValidation obj)
+        {
+            string guid = "";
+            DataTable dt = dal.get.SelectAllHashPoolElector();
+            foreach (DataRow row in dt.Rows)
+            {
+                if (utilities.tools.VerifyHash(row[0].ToString(), PersonId.ToString()))
+                {
+                    DataTable dtIn = dal.get.SelectPoolElector(row[0].ToString());
+
+                    foreach (DataRow rowIn in dtIn.Rows)
+                    {
+                        guid = rowIn[0].ToString();
+                    }
+                }
+            }
+            _ = dal.set.Validate(PersonId, role, guid);
+            clean(obj);
+        }
+
+
     }
 }
