@@ -1,0 +1,16 @@
+﻿<Window x:Class="AVS_Desktop.Views.Consults.ElectionsResults"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVS_Desktop.Views.Consults"
+        mc:Ignorable="d"
+       Title="ElectionsResults" WindowState="Maximized"  WindowStyle="None" Height="450" Width="800">
+    <Grid>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" FontSize="18" Click="Button_Click"/>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Elections Results" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" FontSize="36"/>
+            <Label x:Name="statusLabel" Content="########" HorizontalAlignment="Left" Margin="318,329,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.632,0" FontSize="18" Width="408"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -107,3 +107,9 @@ C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voti
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectorInformation.baml
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\CanadidateInformation.g.cs
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\CanadidateInformation.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\LiveCharts.dll
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\LiveCharts.Wpf.dll
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectionsResults.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectionsResults.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\usersValidation.baml
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\usersValidation.g.cs

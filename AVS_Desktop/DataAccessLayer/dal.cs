@@ -71,20 +71,20 @@ namespace AVS_Desktop.DataAccessLayer
             { 
                 await utilities.sql.Set("INSERT INTO [dbo].[AspNetUsers]([Id],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],[EmailConfirmed],[PasswordHash],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount])\r\n VALUES\r\n ('" + user.Id + "','" + user.UserName + "','" + user.NormalizedUserName + "' ,'" + user.Email + "','" + user.Email + "',0,'" + user.PasswordHash + "',0,0,0,0)");
                 await utilities.sql.Set("Insert into AspNetUserRoles values('" + user.Id + "','" + user.RoleId + "')");
-                await utilities.sql.Set("INSERT INTO Person  VALUES('" + person.Name + "','" + person.LastName + "','" + person.LastName + "','" + person.Gender + "','" + person.bornDate + "','" + person.Email + "','" + person.Phone + "',1,'" + person.UserId + "','https://xsgames.co/randomusers/avatar.php?g=male')");
+                await utilities.sql.Set("INSERT INTO Person  VALUES('" + person.Name + "','" + person.LastName + "','" + person.LastName + "','" + person.Gender + "','" + person.bornDate + "','" + person.Email + "','" + person.Phone + "',0,'" + person.UserId + "','https://xsgames.co/randomusers/avatar.php?g=male')");
                 int max = await get.getLastIdInserted();
                 await utilities.sql.Set("INSERT INTO[dbo].[Address]  VALUES('" + address.PostalCode + "', '" + address.Thoroughfare + "', '" + address.ApartmentNumber + "', '" + address.City + "'," + max + " )");
             }
             public static async Task CreateElector(Elector elector)
             {
                 int max = await get.getLastIdInserted();
-                await utilities.sql.Set("INSERT INTO [dbo].[Elector]\r\n VALUES\r\n ('"+elector.id+"'\r\n,"+elector.PersonId+"\r\n, '"+elector.ElectoralMunicipality+"'\r\n,  '"+elector.ElectoralDistrict+"'\r\n, 1)");
+                await utilities.sql.Set("INSERT INTO [dbo].[Elector]\r\n VALUES\r\n ('"+elector.id+"'\r\n,"+elector.PersonId+"\r\n, '"+elector.ElectoralMunicipality+"'\r\n,  '"+elector.ElectoralDistrict+"'\r\n, 0)");
                 await utilities.sql.Set("insert into PoolElectors values('" + Guid.NewGuid() + "',1,'" + utilities.tools.HashPassword(max.ToString()) + "')");
             }
 
             public static async Task createCandidate(Candidate candidate)
             {
-                await utilities.sql.Set("INSERT INTO [dbo].[Candidate] \r\n VALUES\r\n ('"+candidate.Id+"'\r\n , '"+candidate.PoliticalPartyId+"'\r\n,'"+candidate.ElectoralPosition+"'\r\n,'"+candidate.ElectoralMunicipality+"'\r\n,'"+candidate.ElectoralDistrict+"'\r\n,1,"+candidate.PersonId+")");
+                await utilities.sql.Set("INSERT INTO [dbo].[Candidate] \r\n VALUES\r\n ('"+candidate.Id+"'\r\n , '"+candidate.PoliticalPartyId+"'\r\n,'"+candidate.ElectoralPosition+"'\r\n,'"+candidate.ElectoralMunicipality+"'\r\n,'"+candidate.ElectoralDistrict+"'\r\n,0,"+candidate.PersonId+")");
             }
 
             public static async Task deleteCandidate(Person person)
@@ -194,6 +194,16 @@ namespace AVS_Desktop.DataAccessLayer
             public static DataTable SelectPeople()
             {
                 return utilities.sql.Get(" SELECT P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Id = A.PersonId;");
+
+            }
+            public static DataTable SelectPeopleValidation()
+            {
+                return utilities.sql.Get(" SELECT P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Id = A.PersonId and P.isActive =0;");
+
+            }
+            public static DataTable SelectPeopleByNameValidation(String name)
+            {
+                return utilities.sql.Get(" SELECT P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Name like '%" + name + "%' and P.isActive=0 ;");
 
             }
             public static DataTable SelectPeopleByName(String name)

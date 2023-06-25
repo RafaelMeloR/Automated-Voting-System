@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVS_Desktop.Views.Consults"
         mc:Ignorable="d"
-       Title="ElectorInformation" WindowState="Maximized"  WindowStyle="None" Height="450" Width="800">
+       Title="CandidateInformation" WindowState="Maximized"  WindowStyle="None" Height="450" Width="800">
     <Grid>
         <Button Content="Back" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" FontSize="18" Click="Button_Click"/>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">

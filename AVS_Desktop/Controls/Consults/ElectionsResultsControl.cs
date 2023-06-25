@@ -12,7 +12,7 @@ namespace AVS_Desktop.Controls.Consults
 {
     internal class ElectionsResultsControl
     {
-        public static async Task CountVotesAsync(/*ElectionResults obj*/)
+        public static async Task<List<CountVotes>> CountVotesAsync(/*ElectionResults obj*/)
         {
             List <Candidate> candidates = await dal.get.SelectAllCandidateformation();
             List<CountVotes> votes = dal.get.CountVotes(candidates);
@@ -24,6 +24,12 @@ namespace AVS_Desktop.Controls.Consults
                     MessageBox.Show(vote.CandidateId + ": " + vote.Count);
                 } 
             }
+            return votes;
+        }
+
+        public static void generateChart()
+        {
+
         }
     }
 }

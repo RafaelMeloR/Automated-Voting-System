@@ -9,6 +9,7 @@
     <Grid>
         
         <Menu Margin="0,0,0,404" Background="White" BorderBrush="Black" Foreground="Black">
+            <RibbonSplitMenuItem FontSize="18" Header="Validate" Click="RibbonSplitMenuItem_Click_6"/>
             <RibbonSplitMenuItem FontSize="18" Header="CRUD">
                 <RibbonSplitMenuItem Header="Users" Click="RibbonSplitMenuItem_Click_3"/>
                 <RibbonSplitMenuItem Header="Politicals Parties" Click="RibbonSplitMenuItem_Click_4"/>
