@@ -1,4 +1,5 @@
 ﻿using AVS_API.Data;
+using AVS_API.DataAccessLayer;
 using AVS_API.Models;
 using AVS_API.ViewModels; 
 using Microsoft.AspNetCore.Identity;
@@ -10,42 +11,45 @@ using System.Reflection;
 
 namespace AVS_API.Models
 {
-    public class PersonApplication 
+    public class Application
     {
-        private readonly ApplicationDbContext context;
-        private readonly UserManager<IdentityUser> userManager;
-        public PersonResponse GetAllPeople()
+        public PersonResponse SelectPeople()
         {
-             
-            DataTable dt = utilities.sql.Get("Select * from Person");
+
+            DataTable dt = dal.get.SelectPeople();
             PersonResponse response = new PersonResponse();
-            List<Person> ListOfPeople = new List<Person>();
+            List<PersonViewModel> listOfPeople = new List<PersonViewModel>();
 
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    Person person = new Person();
-                    person.Id = (int)dt.Rows[i]["id"];
-                    person.Name = (string)dt.Rows[i]["name"];
-                    person.LastName = (string)dt.Rows[i]["lastName"];
-                    person.Gender = (string)dt.Rows[i]["gender"];
-                    person.bornDate = (DateTime)dt.Rows[i]["bornDate"];
-                    person.Phone = (int)dt.Rows[i]["phone"];
-                    person.UserId = (string)dt.Rows[i]["userId"]; 
-                    person.Email = (string)dt.Rows[i]["email"];
-                    person.isActive = (bool)dt.Rows[i]["isActive"];
+                    PersonViewModel person = new PersonViewModel();
+                    person.Id = (int)dt.Rows[i]["Id"];
+                    person.Name = (string)dt.Rows[i]["Name"];
+                    person.LastName = (string)dt.Rows[i]["LastName"];
+                    person.Gender = (string)dt.Rows[i]["Gender"];
+                    person.Email = (string)dt.Rows[i]["Email"];
+                    person.Phone = dt.Rows[i]["Phone"].ToString();
+                    person.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    person.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    person.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    person.City = (string)dt.Rows[i]["City"];
+                    person.UserId = (string)dt.Rows[i]["UserId"];
+                    person.RoleId = (string)dt.Rows[i]["RoleId"];
+                    person.RoleName = (string)dt.Rows[i]["Name"];
 
-                    ListOfPeople.Add(person);
+                    listOfPeople.Add(person);
                 }
 
             }
 
-            if (ListOfPeople.Count > 0)
+
+            if (listOfPeople.Count > 0)
             {
                 response.statusCode = 200;
                 response.statusMessage = "Data retrievable is successful";
-                response.people = ListOfPeople;
+                response.people = listOfPeople;
             }
             else
             {
@@ -56,24 +60,178 @@ namespace AVS_API.Models
             return response;
         }
 
-      public PersonResponse GetPersonById(int id)
+        public PersonResponse SelectPeopleValidation()
         {
 
+            DataTable dt = dal.get.SelectPeopleValidation();
             PersonResponse response = new PersonResponse();
-            DataTable dt = utilities.sql.Get("Select * from Person where id='" + id + "'");
+            List<PersonViewModel> listOfPeople = new List<PersonViewModel>();
 
             if (dt.Rows.Count > 0)
             {
-                Person person = new Person();
-                person.Id = (int)dt.Rows[0]["id"];
-                person.Name = (string)dt.Rows[0]["name"];
-                person.LastName = (string)dt.Rows[0]["lastName"];
-                person.Gender = (string)dt.Rows[0]["gender"];
-                person.bornDate = (DateTime)dt.Rows[0]["bornDate"];
-                person.Phone = (int)dt.Rows[0]["phone"];
-                person.UserId = (string)dt.Rows[0]["userId"];
-                person.Email = (string)dt.Rows[0]["email"];
-                person.isActive = (bool)dt.Rows[0]["isActive"];
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PersonViewModel person = new PersonViewModel();
+                    person.Id = (int)dt.Rows[i]["Id"];
+                    person.Name = (string)dt.Rows[i]["Name"];
+                    person.LastName = (string)dt.Rows[i]["LastName"];
+                    person.Gender = (string)dt.Rows[i]["Gender"];
+                    person.Email = (string)dt.Rows[i]["Email"];
+                    person.Phone = dt.Rows[i]["Phone"].ToString();
+                    person.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    person.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    person.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    person.City = (string)dt.Rows[i]["City"];
+                    person.UserId = (string)dt.Rows[i]["UserId"];
+                    person.RoleId = (string)dt.Rows[i]["RoleId"];
+                    person.RoleName = (string)dt.Rows[i]["Name"];
+
+                    listOfPeople.Add(person);
+                }
+
+            }
+
+
+            if (listOfPeople.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.people = listOfPeople;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.people = null;
+            }
+            return response;
+        }
+        public PersonResponse SelectPeopleByNameValidation(string name)
+        {
+
+            DataTable dt = dal.get.SelectPeopleByNameValidation(name);
+            PersonResponse response = new PersonResponse();
+            List<PersonViewModel> listOfPeople = new List<PersonViewModel>();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PersonViewModel person = new PersonViewModel();
+                    person.Id = (int)dt.Rows[i]["Id"];
+                    person.Name = (string)dt.Rows[i]["Name"];
+                    person.LastName = (string)dt.Rows[i]["LastName"];
+                    person.Gender = (string)dt.Rows[i]["Gender"];
+                    person.Email = (string)dt.Rows[i]["Email"];
+                    person.Phone = dt.Rows[i]["Phone"].ToString();
+                    person.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    person.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    person.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    person.City = (string)dt.Rows[i]["City"];
+                    person.UserId = (string)dt.Rows[i]["UserId"];
+                    person.RoleId = (string)dt.Rows[i]["RoleId"];
+                    person.RoleName = (string)dt.Rows[i]["Name"];
+
+                    listOfPeople.Add(person);
+                }
+
+            }
+
+
+            if (listOfPeople.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.people = listOfPeople;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.people = null;
+            }
+            return response;
+        }
+        public PersonResponse SelectPeopleByName(string name)
+        {
+
+            DataTable dt = dal.get.SelectPeopleByName(name);
+            PersonResponse response = new PersonResponse();
+            List<PersonViewModel> listOfPeople = new List<PersonViewModel>();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PersonViewModel person = new PersonViewModel();
+                    person.Id = (int)dt.Rows[i]["Id"];
+                    person.Name = (string)dt.Rows[i]["Name"];
+                    person.LastName = (string)dt.Rows[i]["LastName"];
+                    person.Gender = (string)dt.Rows[i]["Gender"];
+                    person.Email = (string)dt.Rows[i]["Email"];
+                    person.Phone = dt.Rows[i]["Phone"].ToString();
+                    person.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    person.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    person.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    person.City = (string)dt.Rows[i]["City"];
+                    person.UserId = (string)dt.Rows[i]["UserId"];
+                    person.RoleId = (string)dt.Rows[i]["RoleId"];
+                    person.RoleName = (string)dt.Rows[i]["Name"];
+
+                    listOfPeople.Add(person);
+                }
+
+            }
+
+
+            if (listOfPeople.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.people = listOfPeople;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.people = null;
+            }
+            return response;
+        }
+        public PersonResponse SelectIdPersonByUserId(string gui)
+        {
+
+            PersonResponse response = new PersonResponse();
+            int id = dal.get.SelectIdPersonByUserId(gui);
+
+            if (id != 0)
+            {
+                PersonViewModel person = new PersonViewModel();
+                person.Id = id;
+                person.UserId = gui;
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.person = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public PersonResponse SelectNamePersonById(int id)
+        {
+
+            PersonResponse response = new PersonResponse();
+            string name = dal.get.SelectNamePersonById(id);
+
+            if (name != string.Empty)
+            {
+                PersonViewModel person = new PersonViewModel();
+                person.Id = id;
+                person.Name = name;
 
                 response.statusCode = 200;
                 response.statusMessage = "Data retrievable is successful";
@@ -87,7 +245,238 @@ namespace AVS_API.Models
             return response;
         }
 
+        public async Task<PersonResponse> SelectPersonUserID(string email)
+        {
 
+            PersonResponse response = new PersonResponse();
+            PersonViewModel person =await  dal.get.SelectPersonUserID(email);
+
+            if (person.Id != 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.person = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public PersonResponse SelectRoleIdFromUsers(string email)
+        {
+
+            PersonResponse response = new PersonResponse();
+            PersonViewModel person = dal.get.SelectRoleIdFromUsers(email);
+
+            if (person.RoleId !=null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.person = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+        public PersonResponse Login(string user)
+        {
+
+            PersonResponse response = new PersonResponse();
+            PersonViewModel person = dal.get.Login(user);
+
+            if (person.Pasword != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.person = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public async Task<PersonResponse> getLastIdInserted()
+        {
+
+            PersonResponse response = new PersonResponse();
+            PersonViewModel person = await dal.get.getLastIdInserted();
+
+            if (person.Id != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.person = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public RoleResponse SelectRoleName(string roleId)
+        {
+
+            RoleResponse response = new RoleResponse();
+            Role role = dal.get.SelectRoleName(roleId);
+
+            if (role.Name != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.role = role;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public  async Task<RoleResponse> SelectRoleIdFromRole(string roleName)
+        {
+
+            RoleResponse response = new RoleResponse();
+            Role role = await dal.get.SelectRoleIdFromRole(roleName);
+
+            if (role.Id != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.role = role;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public PoliticalPartyResponse selectIdPoliticalPartyByName(String name)
+        {
+
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            PoliticalParty RpoliticalParty = dal.get.selectIdPoliticalPartyByName(name);
+
+            if (RpoliticalParty.Id != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.politicalParty = RpoliticalParty;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public PoliticalPartyResponse selectPoliticalPartyByName(String name)
+        {
+
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            DataTable dt = dal.get.selectPoliticalPartyByName(name);
+            PoliticalParty politicalParty = null; ;
+            List<PoliticalParty> listOfPoliticalParties = new List<PoliticalParty>();
+            if (dt != null)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    politicalParty = new PoliticalParty();
+                    politicalParty.Name = (string)row[1];
+                    politicalParty.Id = (int)row[0];
+                    listOfPoliticalParties.Add(politicalParty);
+                }
+            }
+              
+
+            if (listOfPoliticalParties.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.politicalParties = listOfPoliticalParties;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.politicalParties = null;
+            }
+            return response;
+ 
+        }
+
+        public PoliticalPartyResponse selectLastIdInsertedPoliticalParty()
+        {
+
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            PoliticalParty politicalParty = dal.get.selectLastIdInsertedPoliticalParty();
+
+            if (politicalParty.Id != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.politicalParty = politicalParty;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+            }
+            return response;
+        }
+
+        public PoliticalPartyResponse selectPoliticalsParties()
+        {
+
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            DataTable dt = dal.get.selectPoliticalsParties();
+            PoliticalParty politicalParty = null; ;
+            List<PoliticalParty> listOfPoliticalParties = new List<PoliticalParty>();
+            if (dt != null)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    politicalParty = new PoliticalParty();
+                    politicalParty.Name = (string)row[1];
+                    politicalParty.Id = (int)row[0];
+                    listOfPoliticalParties.Add(politicalParty);
+                }
+            }
+             
+            if (listOfPoliticalParties.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.politicalParties = listOfPoliticalParties;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.politicalParties = null;
+            }
+            return response;
+
+        }
+    }
+}
+        //---------------
+
+/*
         [HttpPost] 
         public async Task<PersonResponse> AddPersonAsync(personViewModel personViewModel)
         {
@@ -96,13 +485,13 @@ namespace AVS_API.Models
           
             var user = new IdentityUser() { Email = personViewModel.Email, UserName = personViewModel.Email };
 
-            var result = await userManager.CreateAsync(user, password: personViewModel.Password); //CREATING USER 
+           // var result = await userManager.CreateAsync(user, password: personViewModel.Password); //CREATING USER 
             //ASSINIG ROLE
             if (user == null)
             {
                 return null;
             }
-            await userManager.AddToRoleAsync(user, role);
+            //await userManager.AddToRoleAsync(user, role);
             //ASSING ROLE END
 
             //SETTING UP THE OBJECTS TO INSERT INTO THE TABLES
@@ -128,15 +517,15 @@ namespace AVS_API.Models
                 PersonId = personViewModel.Id, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
             };
 
-            if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
+           // if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
             {
-                context.Person.Add(person);
+                /*context.Person.Add(person);
                 context.Address.Add(address);
-                await context.SaveChangesAsync();
-            }
+                await context.SaveChangesAsync();*/
+         //   }
          
 
-            PersonResponse response = new PersonResponse();
+           // PersonResponse response = new PersonResponse();
           /*  String query = "INSERT INTO [dbo].[AspNetUsers] VALUES('" + person.Email + "','" + person.Password + "')      INSERT INTO AspNetUserRoles VALUES('" + person.UserId + "','" + person.role + "') INSERT INTO Person VALUES('" + person.Name + "','" + person.LastName + "','" + person.Gender + "'," + person.bornDate + ",'" + person.Email + "','" + person.Phone + "','" + person.isActive + "','" + person.UserId + "') INSERT INTO Address  VALUES('" + person.PostalCode + "','" + person.Thoroughfare + "','" + person.ApartmentNumber + "','" + person.City + "','" + person.PersonId + "')";
 
 
@@ -154,9 +543,9 @@ namespace AVS_API.Models
               response.person = null;
           }*/
 
-          return response;
-
-      }
+          //return response;
+        
+     // }
         /*
             public async Task<Response> UpdateStudentsAsync(Student student)
             {
@@ -206,5 +595,5 @@ namespace AVS_API.Models
                 return response;
 
             }*/
-    }
-}
+  //  }
+//}

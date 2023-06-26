@@ -16,5 +16,5 @@ C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voti
 246-531787528
 MainWindow.xaml;Views\Admin.xaml;Views\Candidates.xaml;Views\Consults\CanadidateInformation.xaml;Views\Consults\ConsultsCandidates.xaml;Views\Consults\ConsultsElectors.xaml;Views\Consults\ElectionsResults.xaml;Views\Consults\ElectorInformation.xaml;Views\CRUD\PoliticalPartyCrud.xaml;Views\CRUD\UsersCrud.xaml;Views\Electors.xaml;Views\Login.xaml;Views\usersValidation.xaml;Views\Vote.xaml;Views\VoteLogin.xaml;
 
-False
+True
 

@@ -1,11 +1,8 @@
 ﻿using Automated_Voting_System.Entities;
 using AVS_Desktop.Models;
-using AVS_Desktop.Views;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.DirectoryServices;
 using System.Threading.Tasks;
 using Candidate = AVS_Desktop.Models.Candidate;
 

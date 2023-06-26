@@ -1,51 +1,163 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AVS_API.DataAccessLayer;
+using AVS_API.ViewModels;
+using Microsoft.AspNet.Identity;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace AVS_API
 {
     public static class utilities
     {
+       
 
-        public static string HashPassword(string password)
+        public static class tools
         {
-            string plainTextPassword = password;
-            var passwordHasher = new PasswordHasher();
-            string hashedPassword = passwordHasher.HashPassword(plainTextPassword);
-            return hashedPassword;
+            
+            public static string HashPassword(string password)
+            { 
+                string plainTextPassword = password;
+                var passwordHasher = new PasswordHasher();
+                string hashedPassword = passwordHasher.HashPassword(plainTextPassword);  
+                return hashedPassword;
+            }
+            public static bool VerifyHashPassword(string user ,string password)
+            {
+                PersonViewModel pass = dal.get.Login(user);
+                 
+                bool hash=false;
+                var passwordHasher = new PasswordHasher();
+                string hashedPasswordFromDatabase = pass.Pasword;
+                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(hashedPasswordFromDatabase, password);
+                if (passwordVerificationResult == PasswordVerificationResult.Success)
+                {
+                    hash = true; 
+                }
+                else if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                {
+                    hash=false; 
+                }
+                
+                return hash;
+            }
+            public static bool VerifyHash(string hashed, string id)
+            {
+                 
+                bool hash = false;
+                var passwordHasher = new PasswordHasher(); 
+                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(hashed, id);
+                if (passwordVerificationResult == PasswordVerificationResult.Success)
+                {
+                    hash = true;
+                }
+                else if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                {
+                    hash = false;
+                }
+
+                return hash;
+            }
+            public static void OpenUrl(string target)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = target,
+                        UseShellExecute = true
+                    });
+                }
+                catch (System.ComponentModel.Win32Exception noBrowser)
+                {
+                    if (noBrowser.ErrorCode == -2147467259)
+                        Console.WriteLine(noBrowser.Message);
+                }
+                catch (System.Exception other)
+                {
+                    Console.WriteLine(other.Message);
+                }
+            }
+            public static string GetIpAddress()
+            {
+                string ipAddress = string.Empty;
+
+                try
+                {
+                    string hostName = Dns.GetHostName();
+                    IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+
+                    foreach (IPAddress address in addresses)
+                    {
+                        if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            ipAddress = address.ToString();
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error getting IP address: " + ex.Message);
+                }
+
+                return ipAddress;
+            }
+        
+            public static string GetMacAddress()
+            {
+                string macAddress = string.Empty;
+
+                try
+                {
+                    foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+                    {
+                        if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                            nic.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                        {
+                            macAddress = nic.GetPhysicalAddress().ToString();
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error getting MAC address: " + ex.Message);
+                }
+
+                return macAddress;
+            } 
+
         }
         public static  class sql
         {
-            private static string GetConnectingString()
+            private static string getConnnectionString()
             {
 
                 string connectionString = "Server=localhost;Database=AutomatedVotingSystem;Integrated Security=True;TrustServerCertificate=True";
                 return connectionString;
             }
-            private static SqlConnection? con;
-            private static SqlCommand? cmd;
+            private static SqlConnection con;
+            private static SqlCommand cmd;
 
             private static  void establishConnection()
             {
                 try
                 {
-                    con = new SqlConnection(GetConnectingString());
+                    con = new SqlConnection(getConnnectionString());
                     
                 }
                 catch (SqlException ex)
                 {
-                  Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
 
                 }
             }
-
-            //Threading for handling database operations
-            public static async
-            //Threading for handling database operations
-            Task<bool>
-            Set(string query)
+             
+            public static async  
+            Task Set(string query)
             {
-                bool state;
                 try
                 {
                     establishConnection();
@@ -56,17 +168,13 @@ namespace AVS_API
                     using (cmd = new SqlCommand(query, con))
                     {
                         await cmd.ExecuteNonQueryAsync();
-                    }
-                    Console.WriteLine("Executed Successfully");
+                    } 
                     con.Close();
-                    state= true;
                 }
                 catch (SqlException ex)
                 {
-                    state = false;
                     Console.WriteLine(ex.Message);
-                }
-                return state;
+                } 
             }
 
             public static DataTable Get(string query)
@@ -76,6 +184,7 @@ namespace AVS_API
                 {
                     establishConnection();
                     con.Open();
+                    cmd = new SqlCommand(query, con);
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
                     adapter.Fill(dt);
                     con.Close();

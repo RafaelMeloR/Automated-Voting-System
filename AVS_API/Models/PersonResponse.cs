@@ -7,10 +7,10 @@ namespace AVS_API.Models
         public int statusCode { get; set; }
         public string statusMessage { get; set; }
 
-        public Person person { get; set; }
-        public List<Person> people { get; set; }
+        public PersonViewModel person { get; set; }
+        public List<PersonViewModel> people { get; set; }
 
-        public personViewModel users { get; set; }
+        public PersonViewModel users { get; set; }
 
         
     }
