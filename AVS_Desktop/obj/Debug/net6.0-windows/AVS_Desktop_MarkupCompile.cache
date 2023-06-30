@@ -12,8 +12,8 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\App.xaml
 15-765055060
 
-42-501296917
-246-531787528
+56-1218300410
+2491147322678
 MainWindow.xaml;Views\Admin.xaml;Views\Candidates.xaml;Views\Consults\CanadidateInformation.xaml;Views\Consults\ConsultsCandidates.xaml;Views\Consults\ConsultsElectors.xaml;Views\Consults\ElectionsResults.xaml;Views\Consults\ElectorInformation.xaml;Views\CRUD\PoliticalPartyCrud.xaml;Views\CRUD\UsersCrud.xaml;Views\Electors.xaml;Views\Login.xaml;Views\usersValidation.xaml;Views\Vote.xaml;Views\VoteLogin.xaml;
 
 False

@@ -28,7 +28,7 @@ namespace AVS_Desktop.Views.CRUD
         } 
         private void usersGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            UsersCrudControl.CopyFromGridToTextbox(this);
+            _ = UsersCrudControl.CopyFromGridToTextbox(this);
         }
         private void updateBT_Click(object sender, RoutedEventArgs e)
         {
@@ -57,7 +57,7 @@ namespace AVS_Desktop.Views.CRUD
             utilities.tools.numberValidation(e);
         }
 
-        private async void refresh_Click(object sender, RoutedEventArgs e)
+        private void refresh_Click(object sender, RoutedEventArgs e)
         {
             UsersCrudControl.fillGrid(this);
         }

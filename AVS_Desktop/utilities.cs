@@ -1,6 +1,8 @@
 ﻿using AVS_Desktop.DataAccessLayer;
 using AVS_Desktop.Views;
+using Azure;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,6 +10,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,12 +25,26 @@ namespace AVS_Desktop
 {
     public static class utilities
     {
+        public static class API
+        {
+            public static HttpClient conn()
+            {
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri("https://localhost:7083/");
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                return httpClient;
+            }
+        }
         public static class AVS
         {
+             
             public static void DataTableToDataGrid(DataGrid grid,DataTable dt)
             {  
                 grid.ItemsSource = dt.DefaultView;
-            }
+            } 
 
             /*public static void copyToTextBox(Object ob, DataRowView selected_row)
             {

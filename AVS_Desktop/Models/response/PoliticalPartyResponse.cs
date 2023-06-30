@@ -1,6 +1,7 @@
-﻿using AVS_API.ViewModels;
+﻿using AVS_Desktop.ViewModels;
+using System.Collections.Generic;
 
-namespace AVS_API.Models
+namespace AVS_Desktop.Models.response
 {
     public class PoliticalPartyResponse
     {
@@ -9,6 +10,6 @@ namespace AVS_API.Models
 
         public PoliticalParty politicalParty { get; set; }
         public List<PoliticalParty> politicalParties { get; set; }
-          
+
     }
 }

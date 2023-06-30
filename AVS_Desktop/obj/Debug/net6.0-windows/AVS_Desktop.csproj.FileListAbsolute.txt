@@ -113,3 +113,6 @@ C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voti
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\Consults\ElectionsResults.baml
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\usersValidation.baml
 C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\obj\Debug\net6.0-windows\Views\usersValidation.g.cs
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Dell1\Documents\GitHub\APPLICATION-DEVELOPMENT-1\Project\Automated-Voting-System\AVS_Desktop\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll

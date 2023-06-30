@@ -1,5 +1,6 @@
 ﻿using AVS_Desktop.Views;
 using AVS_Desktop.Views.Consults;
+using AVS_Desktop.Views.CRUD;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,7 +26,7 @@ namespace AVS_Desktop
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
          
         private void close_Click(object sender, RoutedEventArgs e)

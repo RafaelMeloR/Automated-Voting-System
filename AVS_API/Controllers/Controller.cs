@@ -1,4 +1,5 @@
 ﻿using AVS_API.Models;
+using AVS_API.Models.response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AVS_API.Controllers
@@ -172,16 +173,128 @@ namespace AVS_API.Controllers
             response = app.selectPoliticalsParties();
             return response;
         }
-        // [HttpPost]
-        //   [Route("AddPersonAsync")]
-        /*public Task<PersonResponse> AddPersonAsync(PersonViewModel person)
+
+        [HttpGet]
+        [Route("SelectCandidates")]
+        public CandidateResponse SelectCandidates()
         {
-            PersonApplication app = new PersonApplication();
-           // Task<PersonResponse> response = app.AddPersonAsync(person);
-           // return response;
+            CandidateResponse response = new CandidateResponse();
+            Application app = new Application();
+            response = app.SelectCandidates();
+            return response;
+        }
 
-        }*/
+        [HttpGet]
+        [Route("SelectCandidateByName/{name}")]
+        public CandidateResponse SelectCandidateByName(string name)
+        {
+            CandidateResponse response = new CandidateResponse();
+            Application app = new Application();
+            response = app.SelectCandidateByName(name);
+            return response;
+        }
 
+        [HttpGet]
+        [Route("SelectCandidateformation/{personId}")]
+        public async Task<CandidateResponse> SelectCandidateformation(int personId)
+        {
+            CandidateResponse response = new CandidateResponse();
+            Application app = new Application();
+            response = await app.SelectCandidateformation(personId);
+            return response;
+        }
+
+
+        [HttpGet]
+        [Route("SelectAllCandidateformation/")]
+        public async Task<CandidateResponse> SelectAllCandidateformation()
+        {
+            CandidateResponse response = new CandidateResponse();
+            Application app = new Application();
+            response = await app.SelectAllCandidateformation();
+            return response;
+        }
+
+        [HttpGet]
+        [Route("SelectElectors")]
+        public ElectorResponse SelectElectors()
+        {
+            ElectorResponse response = new ElectorResponse();
+            Application app = new Application();
+            response = app.SelectElectors();
+            return response;
+        }
+
+        [HttpGet]
+        [Route("SelectElectorsByName/{name}")]
+        public ElectorResponse SelectElectorsByName(string name)
+        {
+            ElectorResponse response = new ElectorResponse();
+            Application app = new Application();
+            response = app.SelectElectorsByName(name);
+            return response;
+        }
+
+        [HttpGet]
+        [Route("SelectElectorInformation/{PersonId}")]
+        public ElectorResponse SelectElectorInformation(int PersonId)
+        {
+            ElectorResponse response = new ElectorResponse();
+            Application app = new Application();
+            response = app.SelectElectorInformation(PersonId);
+            return response;
+        }
+
+        [HttpGet]
+        [Route("ValidateElector/{guid}")]
+        public PoolElectorsResponse ValidateElector(string guid)
+        {
+            PoolElectorsResponse response = new PoolElectorsResponse();
+            Application app = new Application();
+            response = app.ValidateElector(guid);
+            return response;
+        }
+
+        [HttpGet]
+        [Route("SelectPoolElector/{hash}")]
+        public PoolElectorsResponse SelectPoolElector(string hash)
+        {
+            PoolElectorsResponse response = new PoolElectorsResponse();
+            Application app = new Application();
+            response = app.SelectPoolElector(hash);
+            return response;
+        }
+
+
+        [HttpGet]
+        [Route("SelectAllHashPoolElector/")]
+        public PoolElectorsResponse SelectAllHashPoolElector()
+        {
+            PoolElectorsResponse response = new PoolElectorsResponse();
+            Application app = new Application();
+            response = app.SelectAllHashPoolElector();
+            return response;
+        }
+
+        [HttpGet]
+        [Route("CountVotes/{Candidates}")]
+        public CountVotesResponse CountVotes(List<Candidate> candidates)
+        {
+            CountVotesResponse response = new CountVotesResponse();
+            Application app = new Application();
+            response = app.CountVotes(candidates);
+            return response;
+        }
+
+        [HttpGet]
+        [Route("SelectPersonByEmail/{email}")]
+        public async Task<PersonResponse> SelectPersonByEmail(String email)
+        {
+            PersonResponse response = new PersonResponse();
+            Application app = new Application();
+            response = await app.SelectPersonByEmail(email);
+            return response;
+        }
 
     }
 }

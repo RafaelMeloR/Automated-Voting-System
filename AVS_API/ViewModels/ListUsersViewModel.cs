@@ -1,4 +1,4 @@
-﻿using AVS_API.Models;
+﻿using AVS_API.Models.response;
 
 namespace AVS_API.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using AVS_API.ViewModels;
 
-namespace AVS_API.Models
+namespace AVS_API.Models.response
 {
     public class RoleResponse
     {
@@ -9,6 +9,6 @@ namespace AVS_API.Models
 
         public Role role { get; set; }
         public List<Role> roles { get; set; }
-          
+
     }
 }

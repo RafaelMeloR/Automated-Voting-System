@@ -1,13 +1,8 @@
-﻿using AVS_API.Data;
-using AVS_API.DataAccessLayer;
-using AVS_API.Models;
-using AVS_API.ViewModels; 
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using AVS_API.DataAccessLayer;
+using AVS_API.Models.response;
+using AVS_API.ViewModels;
+using AVS_Desktop.ViewModels;
 using System.Data;
-using System.Numerics;
-using System.Reflection;
 
 namespace AVS_API.Models
 {
@@ -472,128 +467,420 @@ namespace AVS_API.Models
             return response;
 
         }
-    }
-}
-        //---------------
 
-/*
-        [HttpPost] 
-        public async Task<PersonResponse> AddPersonAsync(personViewModel personViewModel)
+        public CandidateResponse SelectCandidates()
         {
-           
-            string role = personViewModel.role;
-          
-            var user = new IdentityUser() { Email = personViewModel.Email, UserName = personViewModel.Email };
 
-           // var result = await userManager.CreateAsync(user, password: personViewModel.Password); //CREATING USER 
-            //ASSINIG ROLE
-            if (user == null)
+            DataTable dt = dal.get.SelectCandidates();
+            CandidateResponse response = new CandidateResponse();
+            List<CandidateViewModel> listofCandidates = new List<CandidateViewModel>();
+
+            if (dt.Rows.Count > 0)
             {
-                return null;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    CandidateViewModel candidate = new CandidateViewModel();
+                    candidate.IdPerson = (int)dt.Rows[i]["Id"];
+                    candidate.Name = (string)dt.Rows[i]["Name"];
+                    candidate.LastName = (string)dt.Rows[i]["LastName"];
+                    candidate.Gender = (string)dt.Rows[i]["Gender"];
+                    candidate.Email = (string)dt.Rows[i]["Email"];
+                    candidate.Phone = dt.Rows[i]["Phone"].ToString();
+                    candidate.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    candidate.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    candidate.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    candidate.City = (string)dt.Rows[i]["City"];
+                    candidate.UserId = (string)dt.Rows[i]["UserId"];
+                    candidate.ProfilePhoto = (string)dt.Rows[i]["ProfilePhoto"];
+                    candidate.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    candidate.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    candidate.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    candidate.City = (string)dt.Rows[i]["City"];
+                    candidate.PoliticalPartyId = (int)dt.Rows[i]["PoliticalPartyId"];
+                    candidate.ElectoralPosition = (string)dt.Rows[i]["ElectoralPosition"];
+                    candidate.ElectoralMunicipality = (string)dt.Rows[i]["ElectoralMunicipality"];
+                    candidate.ElectoralDistrict = (string)dt.Rows[i]["ElectoralDistrict"];
+                    candidate.isActiveCandidate = (bool)dt.Rows[i]["isActive"];
+                    candidate.NamePoliticalParty = (string)dt.Rows[i]["Name"];
+
+                    listofCandidates.Add(candidate);
+                }
+
             }
-            //await userManager.AddToRoleAsync(user, role);
-            //ASSING ROLE END
-
-            //SETTING UP THE OBJECTS TO INSERT INTO THE TABLES
-            var person = new Person
-            {
-                Name = personViewModel.Name,
-                LastName = personViewModel.LastName,
-                Phone = personViewModel.Phone, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
-                Gender = personViewModel.Gender,
-                Email = personViewModel.Email,
-                MarriedName = personViewModel.MarriedName,
-                bornDate = personViewModel.bornDate,
-                isActive = true,
-                UserId = user.Id,
-            };
-
-            var address = new Address
-            {
-                City = personViewModel.City,
-                ApartmentNumber = personViewModel.ApartmentNumber,
-                Thoroughfare = personViewModel.Thoroughfare,
-                PostalCode = personViewModel.PostalCode,
-                PersonId = personViewModel.Id, //TO FIX THIS VALUE IS GETTING 0 IN THE DATABASE
-            };
-
-           // if (result.Succeeded)//IF USER WAS CREATED SUCCESFULLY THEN ADD INTO DATABASE PERSON AND ADDRESS THEN GO HOME
-            {
-                /*context.Person.Add(person);
-                context.Address.Add(address);
-                await context.SaveChangesAsync();*/
-         //   }
-         
-
-           // PersonResponse response = new PersonResponse();
-          /*  String query = "INSERT INTO [dbo].[AspNetUsers] VALUES('" + person.Email + "','" + person.Password + "')      INSERT INTO AspNetUserRoles VALUES('" + person.UserId + "','" + person.role + "') INSERT INTO Person VALUES('" + person.Name + "','" + person.LastName + "','" + person.Gender + "'," + person.bornDate + ",'" + person.Email + "','" + person.Phone + "','" + person.isActive + "','" + person.UserId + "') INSERT INTO Address  VALUES('" + person.PostalCode + "','" + person.Thoroughfare + "','" + person.ApartmentNumber + "','" + person.City + "','" + person.PersonId + "')";
 
 
-          bool state = await utilities.sql.Set(query);
-            if (state)
+            if (listofCandidates.Count > 0)
             {
                 response.statusCode = 200;
-              response.statusMessage = "Data entry Successfully";
-              response.users = person;
-          }
-          else
-          {
-              response.statusCode = 100;
-              response.statusMessage = "No data inserted";
-              response.person = null;
-          }*/
-
-          //return response;
-        
-     // }
-        /*
-            public async Task<Response> UpdateStudentsAsync(Student student)
+                response.statusMessage = "Data retrievable is successful";
+                response.candidates = listofCandidates;
+            }
+            else
             {
-                Response response = new Response();
-                String query = "Update Students set firstName='" + student.FirstName + "',lastName= '" + student.LastName + "', email='" + student.Email + "' where id=" + (int)student.Id + "";
-                await utilities.sql.Set(query);
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.candidates = null;
+            }
+            return response;
+        }
 
+        public CandidateResponse SelectCandidateByName(string name)
+        {
+            DataTable dt = dal.get.SelectCandidateByName(name);
+            CandidateResponse response = new CandidateResponse();
+            List<CandidateViewModel> listofCandidates = new List<CandidateViewModel>();
 
-
-                bool state = await utilities.sql.Set(query);
-
-                if (state)
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    response.statusCode = 200;
-                    response.statusMessage = "Data updated Successfully";
-                    response.student = student;
-                }
-                else
-                {
-                    response.statusCode = 100;
-                    response.statusMessage = "No data updated";
-                    response.student = null;
-                }
+                    CandidateViewModel candidate = new CandidateViewModel();
+                    candidate.IdPerson = (int)dt.Rows[i]["Id"];
+                    candidate.Name = (string)dt.Rows[i]["Name"];
+                    candidate.LastName = (string)dt.Rows[i]["LastName"];
+                    candidate.Gender = (string)dt.Rows[i]["Gender"];
+                    candidate.Email = (string)dt.Rows[i]["Email"];
+                    candidate.Phone = dt.Rows[i]["Phone"].ToString();
+                    candidate.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    candidate.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    candidate.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    candidate.City = (string)dt.Rows[i]["City"];
+                    candidate.UserId = (string)dt.Rows[i]["UserId"];
+                    candidate.ProfilePhoto = (string)dt.Rows[i]["ProfilePhoto"];
+                    candidate.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    candidate.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    candidate.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    candidate.City = (string)dt.Rows[i]["City"];
+                    candidate.PoliticalPartyId = (int)dt.Rows[i]["PoliticalPartyId"];
+                    candidate.ElectoralPosition = (string)dt.Rows[i]["ElectoralPosition"];
+                    candidate.ElectoralMunicipality = (string)dt.Rows[i]["ElectoralMunicipality"];
+                    candidate.ElectoralDistrict = (string)dt.Rows[i]["ElectoralDistrict"];
+                    candidate.isActiveCandidate = (bool)dt.Rows[i]["isActive"];
+                    candidate.NamePoliticalParty = (string)dt.Rows[i]["Name"];
 
-                return response;
+                    listofCandidates.Add(candidate);
+                }
 
             }
 
-            public async Task<Response> DeleteStudentsAsync(int id)
+
+            if (listofCandidates.Count > 0)
             {
-                Response response = new Response();
-                String query = "Delete from Students where id=" + id + "";
-                bool state = await utilities.sql.Set(query);
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.candidates = listofCandidates;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.candidates = null;
+            }
+            return response;
+        }
 
-                if (state)
-                {
+        public async Task<CandidateResponse> SelectCandidateformation(int PersonId)
+        {
+
+            Candidate candidate = await dal.get.SelectCandidateformation(PersonId);
+            CandidateResponse response = new CandidateResponse();
+            
+            if (candidate.ElectoralPosition!=null)
+            {
                     response.statusCode = 200;
-                    response.statusMessage = "Data deleted Successfully";
-                }
-                else
+                    response.statusMessage = "Data retrievable is successful";
+                    response.candidateM = candidate;
+
+            } 
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.candidatesM = null;
+            }
+            return response;
+        }
+
+        public async Task<CandidateResponse> SelectAllCandidateformation()
+        {
+
+            List<Candidate> candidates = await dal.get.SelectAllCandidateformation();
+            CandidateResponse response = new CandidateResponse();
+
+            if (candidates != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.candidatesM = candidates;
+
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.candidatesM = null;
+            }
+            return response;
+        }
+
+        public ElectorResponse SelectElectors()
+        {
+
+            DataTable dt = dal.get.SelectElectors();
+            ElectorResponse response = new ElectorResponse();
+            List<ElectorViewModel> listofElectors = new List<ElectorViewModel>();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    response.statusCode = 100;
-                    response.statusMessage = "No data deleted";
+                    ElectorViewModel elector = new ElectorViewModel();
+                    elector.IdPerson = (int)dt.Rows[i]["Id"];
+                    elector.Name = (string)dt.Rows[i]["Name"];
+                    elector.LastName = (string)dt.Rows[i]["LastName"];
+                    elector.Gender = (string)dt.Rows[i]["Gender"];
+                    elector.Email = (string)dt.Rows[i]["Email"];
+                    elector.Phone = dt.Rows[i]["Phone"].ToString();
+                    elector.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    elector.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    elector.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    elector.City = (string)dt.Rows[i]["City"];
+                    elector.UserId = (string)dt.Rows[i]["UserId"];
+                    elector.ProfilePhoto = (string)dt.Rows[i]["ProfilePhoto"];
+                    elector.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    elector.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    elector.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    elector.City = (string)dt.Rows[i]["City"];  
+                    elector.ElectoralMunicipality = (string)dt.Rows[i]["ElectoralMunicipality"];
+                    elector.ElectoralDistrict = (string)dt.Rows[i]["ElectoralDistrict"];
+                    elector.isActiveElector = (bool)dt.Rows[i]["isActive"]; 
+
+                    listofElectors.Add(elector);
                 }
 
+            }
 
-                return response;
 
-            }*/
-  //  }
-//}
+            if (listofElectors.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.electors = listofElectors;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.electors = null;
+            }
+            return response;
+        }
+
+        public ElectorResponse SelectElectorsByName(string name)
+        {
+            DataTable dt = dal.get.SelectElectorsByName(name);
+            ElectorResponse response = new ElectorResponse();
+            List<ElectorViewModel> listofElectors = new List<ElectorViewModel>();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ElectorViewModel elector = new ElectorViewModel();
+                    elector.IdPerson = (int)dt.Rows[i]["Id"];
+                    elector.Name = (string)dt.Rows[i]["Name"];
+                    elector.LastName = (string)dt.Rows[i]["LastName"];
+                    elector.Gender = (string)dt.Rows[i]["Gender"];
+                    elector.Email = (string)dt.Rows[i]["Email"];
+                    elector.Phone = dt.Rows[i]["Phone"].ToString();
+                    elector.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    elector.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    elector.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    elector.City = (string)dt.Rows[i]["City"];
+                    elector.UserId = (string)dt.Rows[i]["UserId"];
+                    elector.ProfilePhoto = (string)dt.Rows[i]["ProfilePhoto"];
+                    elector.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    elector.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    elector.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    elector.City = (string)dt.Rows[i]["City"];
+                    elector.ElectoralMunicipality = (string)dt.Rows[i]["ElectoralMunicipality"];
+                    elector.ElectoralDistrict = (string)dt.Rows[i]["ElectoralDistrict"];
+                    elector.isActiveElector = (bool)dt.Rows[i]["isActive"];
+
+                    listofElectors.Add(elector);
+                }
+
+            }
+
+
+            if (listofElectors.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.electors = listofElectors;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.electors = null;
+            }
+            return response;
+        }
+
+        public ElectorResponse SelectElectorInformation(int PersonId)
+        {
+            Elector elector = dal.get.SelectElectorInformation(PersonId);
+            ElectorResponse response = new ElectorResponse(); 
+
+            if (elector.id!=null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.electorModel = elector;
+            } 
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.electorModel = null;
+            }
+            return response;
+        }
+
+        public PoolElectorsResponse ValidateElector(string guid)
+        {
+
+            DataTable dt = dal.get.ValidateElector(guid);
+            PoolElectorsResponse response = new PoolElectorsResponse();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PoolElectors pool = new PoolElectors();
+                    pool.idElectors = dt.Rows[i]["idElectors"].ToString();
+                    pool.isActive = (bool)dt.Rows[i]["isActive"]; 
+                    pool.Hash = (string)dt.Rows[i]["Hash"]; 
+
+
+                    response.statusCode = 200;
+                    response.statusMessage = "Data retrievable is successful";
+                    response.poolElector = pool;
+                }
+
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.poolElector = null;
+            }
+            return response;
+        }
+
+        public PoolElectorsResponse SelectPoolElector(string hash)
+        {
+
+            DataTable dt = dal.get.SelectPoolElector(hash);
+            PoolElectorsResponse response = new PoolElectorsResponse();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PoolElectors pool = new PoolElectors();
+                    pool.idElectors = dt.Rows[i]["idElectors"].ToString();
+                    pool.isActive = (bool)dt.Rows[i]["isActive"];
+                    pool.Hash = (string)dt.Rows[i]["Hash"];
+
+
+                    response.statusCode = 200;
+                    response.statusMessage = "Data retrievable is successful";
+                    response.poolElector = pool;
+                }
+
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.poolElector = null;
+            }
+            return response;
+        }
+
+        public PoolElectorsResponse SelectAllHashPoolElector()
+        {
+
+            DataTable dt = dal.get.SelectAllHashPoolElector();
+            PoolElectorsResponse response = new PoolElectorsResponse();
+            List<PoolElectors> listPool = new List<PoolElectors>();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PoolElectors pool = new PoolElectors(); 
+                    pool.Hash = (string)dt.Rows[i]["Hash"];
+
+                    listPool.Add(pool); 
+                }
+
+            }
+
+            if (listPool.Count>0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.poolElectors = listPool;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.poolElectors = null;
+            }
+            return response;
+        }
+
+        public CountVotesResponse CountVotes(List<Candidate> candidates)
+        {
+
+            List<CountVotes> votes = dal.get.CountVotes(candidates);
+            CountVotesResponse response = new CountVotesResponse(); 
+            if (votes.Count > 0)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.votes = votes;
+            } 
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.votes = null;
+            }
+            return response;
+        } 
+         public async Task<PersonResponse> SelectPersonByEmail(String email)
+        { 
+            Person person = await dal.get.SelectPersonByEmail(email);
+            PersonResponse response = new PersonResponse();
+            if (person.Email != null)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data retrievable is successful";
+                response.personM = person;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.personM = null;
+            }
+            return response;
+        }
+
+    }
+}
+  

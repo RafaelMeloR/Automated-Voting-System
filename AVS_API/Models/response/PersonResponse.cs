@@ -1,6 +1,6 @@
 ﻿using AVS_API.ViewModels;
 
-namespace AVS_API.Models
+namespace AVS_API.Models.response
 {
     public class PersonResponse
     {
@@ -12,6 +12,9 @@ namespace AVS_API.Models
 
         public PersonViewModel users { get; set; }
 
-        
+        public Person personM { get; set; }
+        public List<Person> peopleM { get; set; }
+
+
     }
 }

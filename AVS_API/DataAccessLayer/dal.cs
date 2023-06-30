@@ -194,8 +194,7 @@ namespace AVS_API.DataAccessLayer
             public static Task<PersonViewModel> getLastIdInserted()
             {
                 PersonViewModel person = new PersonViewModel();    
-                DataTable dt = utilities.sql.Get(" select max(id) from Person");
-                int max = 0;
+                DataTable dt = utilities.sql.Get(" select max(id) from Person"); 
                 foreach (DataRow row in dt.Rows)
                 {
                     person.Id = (int)row[0];
@@ -226,35 +225,41 @@ namespace AVS_API.DataAccessLayer
                 return utilities.sql.Get(" SELECT P.Id, P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Name like '%" + name + "%';");
 
             }
+            //done
             public static DataTable SelectCandidates()
             {   
                 return utilities.sql.Get("SELECT *\r\nFROM Person AS P\r\nJOIN Address AS A ON P.id = A.PersonId\r\nJOIN AspNetUsers AS U ON P.UserId = U.id\r\nJOIN Candidate AS C ON P.id = C.PersonId\r\nJOIN [AutomatedVotingSystem].[dbo].[PoliticalParty] AS PP ON PP.id = c.PoliticalPartyId\r\nWHERE P.id = c.PersonId;");
             
             }
+            //done
             public static DataTable SelectCandidateByName(String name)
             {
                 return utilities.sql.Get("SELECT *\r\nFROM Person AS P\r\nJOIN Address AS A ON P.id = A.PersonId\r\nJOIN AspNetUsers AS U ON P.UserId = U.id\r\nJOIN Candidate AS C ON P.id = C.PersonId\r\nJOIN [AutomatedVotingSystem].[dbo].[PoliticalParty] AS PP ON PP.id = c.PoliticalPartyId\r\nWHERE P.Name like '%" + name+ "%' ;");
 
             }
-
+            //done
             public static DataTable SelectElectors()
             {
                 return utilities.sql.Get("SELECT *\r\nFROM Person AS P\r\nJOIN Address AS A ON P.id = A.PersonId\r\nJOIN AspNetUsers AS U ON P.UserId = U.id\r\nJOIN Elector AS C ON P.id = C.PersonId\r\nWHERE P.id = c.PersonId;");
 
             }
+            //done
             public static DataTable SelectElectorsByName(String name)
             {
                 return utilities.sql.Get("SELECT *\r\nFROM Person AS P\r\nJOIN Address AS A ON P.id = A.PersonId\r\nJOIN AspNetUsers AS U ON P.UserId = U.id\r\nJOIN Elector AS C ON P.id = C.PersonId\r\n WHERE P.Name like '%" + name + "%' ;");
 
             } 
+            //done
             public static DataTable ValidateElector(String guid) 
             {
                return utilities.sql.Get("SELECT * from PoolElectors where IdElectors ='" + guid + "' and isActive=1;");
             }
+            //done
             public static DataTable SelectPoolElector(String hash)
             {
                 return utilities.sql.Get("SELECT * from PoolElectors where Hash ='" + hash + "';");
             }
+            //done
             public static DataTable SelectAllHashPoolElector()
             {
                 return utilities.sql.Get("SELECT Hash from PoolElectors;");
@@ -342,14 +347,14 @@ namespace AVS_API.DataAccessLayer
                 }
                 return name;
             }
-
+            //done
             public static Elector SelectElectorInformation(int userId)
             {
                 DataTable dt = utilities.sql.Get("SELECT * FROM Elector where PersonId=" + userId + "");
                 Elector elector = new Elector();
                 foreach (DataRow row in dt.Rows)
                 {
-                    elector.id = (Guid)row[0];
+                    elector.id = Convert.ToString(row[0]);
                     elector.PersonId = (int)row[1];
                     elector.ElectoralMunicipality = row[3].ToString();
                     elector.ElectoralDistrict = row[2].ToString();
@@ -357,7 +362,7 @@ namespace AVS_API.DataAccessLayer
                 }
                 return elector;
             }
-
+            //done
             public static async Task<Candidate> SelectCandidateformation(int userId)
             {
                 DataTable dt = utilities.sql.Get("SELECT * FROM Candidate where PersonId=" + userId + "");
@@ -374,7 +379,7 @@ namespace AVS_API.DataAccessLayer
                 }
                 return await Task.FromResult(candidate);
             }
-
+            //done
             public static async Task<List<Candidate>> SelectAllCandidateformation()
             {
                 DataTable dt = utilities.sql.Get("SELECT * FROM Candidate");
@@ -393,7 +398,7 @@ namespace AVS_API.DataAccessLayer
                 }
                 return await Task.FromResult(candidates);
             }
-             
+             //done
             public static List<CountVotes> CountVotes(List<Candidate> candidates)
             {
                 List<CountVotes> list=new List<CountVotes>();
@@ -419,6 +424,28 @@ namespace AVS_API.DataAccessLayer
                 {
                     person.UserId = row[0].ToString();
                     person.Id =(int) row[1];
+                }
+
+                return person;
+            }
+
+            public static async Task<Person> SelectPersonByEmail(string email)
+            {
+                Person person = new Person();
+                DataTable dt = await Task.FromResult(utilities.sql.Get("SELECT * FROM Person where Email='" + email + "'"));
+                foreach (DataRow row in dt.Rows)
+                {
+                    person.Id= (int)row[0];
+                    person.Name = (string)row[1];
+                    person.LastName = (string)row[2];
+                    person.MarriedName = (string)row[3];
+                    person.Gender = (string)row[4];
+                    person.bornDate=(DateTime)row[5];
+                    person.Email = (string)row[6];
+                    person.Phone = (string)row[7];
+                    person.isActive = (bool)row[8];
+                    person.UserId =row[9].ToString();
+                    person.ProfilePhoto = (string)row[10];
                 }
 
                 return person;
