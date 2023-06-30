@@ -1,22 +1,31 @@
 ﻿using AVS_Desktop.DataAccessLayer;
+using AVS_Desktop.Models;
+using AVS_Desktop.Models.response;
 using AVS_Desktop.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+using static AVS_Desktop.utilities;
+//API IMPLEMENTED
 namespace AVS_Desktop.Controls
 {
     internal class LoginVoteControl
     {
-        public static bool ValidateUID(String guid, VoteLogin obj)
+        public async static Task<bool> ValidateUID(String guid, VoteLogin obj)
         {
-            bool result = true;
-            DataTable dt = dal.get.ValidateElector(guid);
-            if (dt.Rows.Count==0)
+            HttpClient httpClient = API.conn();
+            var response = await httpClient.GetStringAsync("ValidateElector/" + guid);
+            PoolElectorsResponse response_Json = JsonConvert.DeserializeObject<PoolElectorsResponse>(response);
+            PoolElectors pool = response_Json.poolElector; 
+
+            bool result = true; 
+            if (response_Json.statusCode != 200)
             { 
                 result = false;
                 MessageBox.Show("Unique User ID INVALID ");
