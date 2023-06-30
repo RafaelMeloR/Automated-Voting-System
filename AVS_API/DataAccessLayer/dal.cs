@@ -246,7 +246,7 @@ namespace AVS_API.DataAccessLayer
             //done
             public static DataTable SelectElectorsByName(String name)
             {
-                return utilities.sql.Get("SELECT *\r\nFROM Person AS P\r\nJOIN Address AS A ON P.id = A.PersonId\r\nJOIN AspNetUsers AS U ON P.UserId = U.id\r\nJOIN Elector AS C ON P.id = C.PersonId\r\n WHERE P.Name like '%" + name + "%' ;");
+                return utilities.sql.Get("SELECT * FROM Person AS P JOIN Address AS A ON P.id = A.PersonId JOIN AspNetUsers AS U ON P.UserId = U.id JOIN Elector AS C ON P.id = C.PersonId WHERE P.Name like '%" + name + "%' ;");
 
             } 
             //done
