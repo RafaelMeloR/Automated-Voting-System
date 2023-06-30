@@ -268,7 +268,7 @@ namespace AVS_Desktop.Views.CRUD {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AVS_Desktop;component/views/crud/userscrud.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AVS_Desktop;V1.0.0.0;component/views/crud/userscrud.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\CRUD\UsersCrud.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

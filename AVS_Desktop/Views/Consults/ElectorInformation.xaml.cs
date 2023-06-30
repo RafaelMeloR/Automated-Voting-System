@@ -30,5 +30,12 @@ namespace AVS_Desktop.Views.Consults
         {
             Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            VoteLogin voteLogin = new VoteLogin();
+            voteLogin.Uid.Text = ueanLabel.Content.ToString();
+            voteLogin.Show();
+        }
     }
 }

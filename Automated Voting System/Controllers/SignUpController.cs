@@ -45,8 +45,8 @@ namespace Automated_Voting_System.Controllers
                 return View(model);
             }
             var user = new IdentityUser() { Email = model.Email, UserName = model.Email };
-            var gui=Guid.NewGuid().ToString();
-            var results = await utilities.sql.Set("INSERT INTO [dbo].[AspNetUsers]([Id],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],[EmailConfirmed],[PasswordHash],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount])\r\n VALUES\r\n ('" + gui + "','" + user + "','" + user + "' ,'" + user + "','" + user + "',0,'" + utilities.HashPassword(model.Password) + "',0,0,0,0)");
+            var gui=Guid.NewGuid().ToString(); 
+            var results = await utilities.sql.Set("INSERT INTO [dbo].[AspNetUsers]([Id],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],[EmailConfirmed],[PasswordHash],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount])\r\n VALUES\r\n ('" + gui + "','" + user + "','" + user + "' ,'" + user + "','" + user + "',0,'" + utilities.tools.HashPassword(model.Password) + "',0,0,0,0)");
             await utilities.sql.Set("Insert into AspNetUserRoles values('"+gui+"','"+role+"')");
             await utilities.sql.Set("INSERT INTO Person  VALUES('" + model.Name + "','" + model.LastName + "','" + model.LastName + "','" + model.Gender + "','" + model.bornDate + "','" + model.Email + "','" + model.Phone + "',1,'" + gui + "','https://xsgames.co/randomusers/avatar.php?g=male')");
             DataTable dt = utilities.sql.Get(" select max(id) from Person");

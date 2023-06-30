@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AVS_Desktop.Controls
 {
@@ -82,7 +83,7 @@ namespace AVS_Desktop.Controls
             await dal.set.InserIntoVoting(Guid.NewGuid(), IdElector);
             await dal.set.InserIntoVote(Guid.NewGuid(), IdElector, GetGuid().ToString());
             await dal.set.UpdatePoolElectors(IdElector);
-            
+            MessageBox.Show("Process completed successfully");
         }
     }
 }

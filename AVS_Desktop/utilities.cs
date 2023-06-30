@@ -254,7 +254,7 @@ namespace AVS_Desktop
             }
              
             public static async  
-            Task Set(string query)
+            Task<bool> Set(string query)
             {
                 try
                 {
@@ -268,11 +268,13 @@ namespace AVS_Desktop
                         await cmd.ExecuteNonQueryAsync();
                     } 
                     con.Close();
+                    return true;
                 }
                 catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 } 
+                return false;
             }
 
             public static DataTable Get(string query)

@@ -52,7 +52,7 @@ namespace AVS_Desktop.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AVS_Desktop;component/views/candidates.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AVS_Desktop;V1.0.0.0;component/views/candidates.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\Candidates.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
