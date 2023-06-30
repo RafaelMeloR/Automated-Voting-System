@@ -156,7 +156,7 @@ namespace AVS_API
             }
              
             public static async  
-            Task Set(string query)
+            Task<bool> Set(string query)
             {
                 try
                 {
@@ -170,11 +170,13 @@ namespace AVS_API
                         await cmd.ExecuteNonQueryAsync();
                     } 
                     con.Close();
+                    return true;
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine(ex.Message);
                 } 
+                return false;
             }
 
             public static DataTable Get(string query)

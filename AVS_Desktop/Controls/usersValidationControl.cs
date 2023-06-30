@@ -1,10 +1,21 @@
 ﻿using AVS_Desktop.DataAccessLayer;
 using AVS_Desktop.Models;
+using AVS_Desktop.Models.response;
+using AVS_Desktop.ViewModels;
 using AVS_Desktop.Views;
+using Azure;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-
+using System.Windows.Controls;
+using static AVS_Desktop.utilities;
+using Candidate = AVS_Desktop.Models.Candidate;
+//API IMPLEMENTED
 namespace AVS_Desktop.Controls
 {
     public class usersValidationControl
@@ -13,47 +24,55 @@ namespace AVS_Desktop.Controls
         private static string role;
         private static string sesion = LoginControl.sesion;
         
-        public static bool fillGrid(usersValidation obj)
+        public static async Task<bool> fillGrid(usersValidation obj)
         {
-            DataTable dt = dal.get.SelectPeopleValidation();
-            utilities.AVS.DataTableToDataGrid(obj.usersGrid, dt);
-            return true;
+            HttpClient httpClient = API.conn();
+            var response = await httpClient.GetStringAsync("SelectPeopleValidation");
+            PersonResponse response_Json = JsonConvert.DeserializeObject<PersonResponse>(response);
+            obj.usersGrid.ItemsSource = response_Json.people;
+
+            return true; 
         } 
         public static async Task CopyFromGridToTextbox(usersValidation obj)
         {
 
-            DataRowView selected_row = obj.usersGrid.SelectedItem as DataRowView;
-            if (selected_row != null && selected_row.Row != null)
+            PersonViewModel selected_row = obj.usersGrid.SelectedItem as PersonViewModel;
+            if (selected_row != null)
             {
-                DataTable dt = await dal.get.SelectPersonUserID(selected_row[3].ToString());
-                foreach (DataRow row in dt.Rows)
-                {
-                    PersonId = (int)row[1];
-                }
-
+                HttpClient httpClient = API.conn();
+                var response = await httpClient.GetStringAsync("SelectPersonByEmail/" + selected_row.Email);
+                PersonResponse response_Json = JsonConvert.DeserializeObject<PersonResponse>(response);
+                Person person = response_Json.personM;  
+                PersonId= person.Id;
                 if (selected_row != null)
                 {
-                    obj.name.Text = selected_row[0].ToString();
-                    obj.lastname.Text = selected_row[1].ToString();
-                    obj.gender.Items.Add(selected_row[2].ToString());// TO CHECK
-                    obj.email.Text = selected_row[3].ToString();
-                    obj.phone.Text = selected_row[4].ToString();
-                    obj.street.Text = selected_row[5].ToString();
-                    obj.apartment.Text = selected_row[6].ToString();
-                    obj.postalCode.Text = selected_row[7].ToString();
-                    obj.city.Text = selected_row[8].ToString();
-                    if (selected_row[11].ToString() == "electors")
+                    obj.name.Text = selected_row.Name;
+                    obj.lastname.Text = selected_row.LastName;
+                    obj.gender.Items.Add(selected_row.Gender);// TO CHECK
+                    obj.email.Text = selected_row.Email;
+                    obj.phone.Text = selected_row.Phone;
+                    obj.street.Text = selected_row.Thoroughfare;
+                    obj.apartment.Text = selected_row.ApartmentNumber;
+                    obj.postalCode.Text = selected_row.PostalCode;
+                    obj.city.Text = selected_row.City;
+                    if (selected_row.RoleName == "electors")
                     {
-                        obj.electorsRB.IsChecked = true;
-                        Elector elector = dal.get.SelectElectorInformation(PersonId);
+                        response = await httpClient.GetStringAsync("SelectElectorInformation/" + person.Id);
+                        ElectorResponse electorResponse = JsonConvert.DeserializeObject<ElectorResponse>(response);
+                        Elector elector = electorResponse.electorModel;
+                        role = "electors";
+                        obj.electorsRB.IsChecked = true; 
                         obj.electoralditrict.Text = elector.ElectoralDistrict;
                         obj.electoralmunicipality.Text = elector.ElectoralMunicipality;
 
                     }
-                    else if (selected_row[11].ToString() == "candidates")
+                    else if (selected_row.RoleName == "candidates")
                     {
+                        response = await httpClient.GetStringAsync("SelectCandidateformation/" + person.Id);
+                        CandidateResponse candidateResponse = JsonConvert.DeserializeObject<CandidateResponse>(response);
+                        Candidate candidate = candidateResponse.candidateM;
+                        role = "candidates";
                         obj.candidatesRB.IsChecked = true;
-                        Models.Candidate candidate = await dal.get.SelectCandidateformation(PersonId);
                         obj.electoralditrict.Text = candidate.ElectoralDistrict;
                         obj.electoralmunicipality.Text = candidate.ElectoralMunicipality;
                         obj.electoralPosition.Text = candidate.ElectoralPosition;
@@ -107,15 +126,19 @@ namespace AVS_Desktop.Controls
             fillGrid(obj);
         }
 
-        public static void Validate(usersValidation obj)
+        public static async void Validate(usersValidation obj)
         {
-            string guid = "";
-            DataTable dt = dal.get.SelectAllHashPoolElector();
-            foreach (DataRow row in dt.Rows)
+            HttpClient httpClient = utilities.API.conn();
+            var response = await httpClient.GetStringAsync("SelectAllHashPoolElector");
+            PoolElectorsResponse HashPoolElectorsResponse = JsonConvert.DeserializeObject<PoolElectorsResponse>(response);
+            List<PoolElectors> hash = HashPoolElectorsResponse.poolElectors;
+
+            string guid = ""; 
+            foreach (PoolElectors HashPool in hash)
             {
-                if (utilities.tools.VerifyHash(row[0].ToString(), PersonId.ToString()))
+                if (utilities.tools.VerifyHash(HashPool.Hash, Convert.ToString(PersonId)))  
                 {
-                    DataTable dtIn = dal.get.SelectPoolElector(row[0].ToString());
+                    DataTable dtIn = dal.get.SelectPoolElector(HashPool.Hash);
 
                     foreach (DataRow rowIn in dtIn.Rows)
                     {
@@ -123,7 +146,13 @@ namespace AVS_Desktop.Controls
                     }
                 }
             }
-            _ = dal.set.Validate(PersonId, role, guid);
+
+            Validate validate = new Validate();
+            validate.IdPerson=PersonId;
+            validate.Role = role;
+            validate.guid = guid; 
+            var responseValidate = await httpClient.PutAsJsonAsync<Validate>("Validate/", validate);
+            MessageBox.Show(response.ToString());
             clean(obj);
         }
 

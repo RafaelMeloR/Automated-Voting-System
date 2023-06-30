@@ -1,7 +1,7 @@
 ﻿using AVS_API.DataAccessLayer;
 using AVS_API.Models.response;
 using AVS_API.ViewModels;
-using AVS_Desktop.ViewModels;
+using AVS_Desktop.ViewModels; 
 using System.Data;
 
 namespace AVS_API.Models
@@ -79,7 +79,7 @@ namespace AVS_API.Models
                     person.City = (string)dt.Rows[i]["City"];
                     person.UserId = (string)dt.Rows[i]["UserId"];
                     person.RoleId = (string)dt.Rows[i]["RoleId"];
-                    person.RoleName = (string)dt.Rows[i]["Name"];
+                    person.RoleName = (string)dt.Rows[i]["RoleName"];
 
                     listOfPeople.Add(person);
                 }
@@ -918,6 +918,28 @@ namespace AVS_API.Models
                 response.person = null;
             }
             return response;
+        }
+
+        public async Task<ValidateResponse> Validate(Validate validate)
+        {
+            ValidateResponse response = new ValidateResponse();
+            bool state = await dal.set.Validate(validate.IdPerson,validate.Role,validate.guid);
+
+            if (state)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data updated Successfully";
+                response.validate = validate;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data updated";
+                response.validate = null;
+            }
+
+            return response;
+
         }
 
     }

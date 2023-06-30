@@ -38,16 +38,18 @@ namespace AVS_API.DataAccessLayer
             {
                 await utilities.sql.Set("UPDATE [dbo].[Person] SET [Name] = '"+person.Name+"'\r\n      ,[LastName] = '"+person.LastName+"'\r\n      ,[Gender] = '"+person.Gender+"'\r\n      ,[bornDate] = '"+person.bornDate+"'\r\n      ,[Email] = '"+person.Email+"'\r\n      ,[Phone] = '"+person.Phone+"'\r\n WHERE id="+person.Id+"");
             }
-            public static async Task Validate(int Id, string role, string guid  )
+            public static async Task<bool> Validate(int Id, string role, string guid  )
             {
-                await utilities.sql.Set("UPDATE [dbo].[Person] SET [isActive] = 1 WHERE id=" + Id + "");
+                bool status;
+                status=await utilities.sql.Set("UPDATE [dbo].[Person] SET [isActive] = 1 WHERE id=" + Id + "");
                 if (role == "electors")
                 {
-                    await utilities.sql.Set("UPDATE [dbo].[Elector] SET [isActive] =1 WHERE personId=" + Id + "");
-                    await utilities.sql.Set("Update PoolElectors set isActive=1 where IdElectors='" + guid + "'");
+                    status= await utilities.sql.Set("UPDATE [dbo].[Elector] SET [isActive] =1 WHERE personId=" + Id + "");
+                    status=await utilities.sql.Set("Update PoolElectors set isActive=1 where IdElectors='" + guid + "'");
                 }
                 else if (role == "candidates")
-                    await utilities.sql.Set("UPDATE [dbo].[Candidate] SET [isActive] =1 WHERE personId=" + Id + "");
+                    status= await utilities.sql.Set("UPDATE [dbo].[Candidate] SET [isActive] =1 WHERE personId=" + Id + "");
+                return status;
             }
             public static async Task UpdateAddress(Address address)
             {
@@ -210,7 +212,7 @@ namespace AVS_API.DataAccessLayer
             //done
             public static DataTable SelectPeopleValidation()
             {
-                return utilities.sql.Get(" SELECT P.Id, P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Id = A.PersonId and P.isActive =0;");
+                return utilities.sql.Get(" SELECT P.Id, P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name as RoleName FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Id = A.PersonId and P.isActive =0;");
 
             }
             //done

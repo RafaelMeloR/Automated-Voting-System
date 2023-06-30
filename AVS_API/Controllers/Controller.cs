@@ -1,9 +1,11 @@
 ﻿using AVS_API.Models;
 using AVS_API.Models.response;
+using AVS_Desktop.ViewModels; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace AVS_API.Controllers
-{
+{ 
+    [ApiController]
     public class Controller : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -304,7 +306,18 @@ namespace AVS_API.Controllers
             Application app = new Application();
             response =  app.SelectPersonById(id);
             return response;
-        } 
+        }
+
+        [HttpPut]
+        [Route("Validate")]
+        public Task<ValidateResponse> Validate(Validate validate)
+        {
+            Application apl = new Application();
+            Task<ValidateResponse> response = apl.Validate(validate);
+            return response;
+
+        }
+       
 
     }
 }
