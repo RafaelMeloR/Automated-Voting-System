@@ -9,17 +9,17 @@ namespace AVS_API.DataAccessLayer
     {
         public class set
         {
-            public static async Task DeletePoliticalParty(Models.PoliticalParty politicalParty)
+            public static async Task<bool> DeletePoliticalParty(int id)
             {
-                await utilities.sql.Set("Delete from [dbo].[PoliticalParty] where Id=" + politicalParty.Id + " ");
+               return await utilities.sql.Set("Delete from [dbo].[PoliticalParty] where Id=" + id + " ");
             }
-            public static async Task UpdatePoliticalParty(Models.PoliticalParty politicalParty)
+            public static async Task<bool> UpdatePoliticalParty(Models.PoliticalParty politicalParty)
             {
-                await utilities.sql.Set("Update [dbo].[PoliticalParty] set Name = '" + politicalParty.Name + "' where Id = "+politicalParty.Id+"");
+               return await utilities.sql.Set("Update [dbo].[PoliticalParty] set Name = '" + politicalParty.Name + "' where Id = "+politicalParty.Id+"");
             }
-            public static async Task InsertPoliticalParty(Models.PoliticalParty politicalParty)
+            public static async Task<bool> InsertPoliticalParty(Models.PoliticalParty politicalParty)
             {
-               await utilities.sql.Set("INSERT INTO [dbo].[PoliticalParty]   VALUES('" + politicalParty.Name + "')");
+               return await utilities.sql.Set("INSERT INTO [dbo].[PoliticalParty]   VALUES('" + politicalParty.Name + "')");
             }
             public static async Task InserIntoVoting(Guid idVote, String IdElector)
             {

@@ -940,6 +940,71 @@ namespace AVS_API.Models
 
         }
 
+        public async Task<PoliticalPartyResponse> InsertPoliticalParty(PoliticalParty politicalParty)
+        {
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            bool state = await dal.set.InsertPoliticalParty(politicalParty);
+
+            if (state)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data entry Successfully";
+                response.politicalParty = politicalParty;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data inserted";
+                response.politicalParty = null;
+            }
+
+            return response;
+
+        }
+
+        public async Task<PoliticalPartyResponse> UpdatePoliticalParty(PoliticalParty politicalParty)
+        {
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            bool state = await dal.set.UpdatePoliticalParty(politicalParty);
+
+            if (state)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data entry Successfully";
+                response.politicalParty = politicalParty;
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data inserted";
+                response.politicalParty = null;
+            }
+
+            return response;
+
+        }
+
+        public async Task<PoliticalPartyResponse> DeletePoliticalParty(int id)
+        {
+            PoliticalPartyResponse response = new PoliticalPartyResponse();
+            bool state = await dal.set.DeletePoliticalParty(id);
+
+            if (state)
+            {
+                response.statusCode = 200;
+                response.statusMessage = "Data entry Successfully"; 
+            }
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data inserted";
+                response.politicalParty = null;
+            }
+
+            return response;
+
+        }
+
     }
 }
   

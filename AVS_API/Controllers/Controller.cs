@@ -317,7 +317,38 @@ namespace AVS_API.Controllers
             return response;
 
         }
-       
+
+
+        [HttpPost]
+        [Route("InsertPoliticalParty")]
+        public async Task<PoliticalPartyResponse> InsertPoliticalParty(PoliticalParty politicalParty)
+        {
+            Application apl = new Application();
+            PoliticalPartyResponse response = await apl.InsertPoliticalParty(politicalParty);
+            return response;
+
+        }
+
+        [HttpPut]
+        [Route("UpdatePoliticalParty")]
+        public async Task<PoliticalPartyResponse> UpdatePoliticalParty(PoliticalParty politicalParty)
+        {
+            Application apl = new Application();
+            PoliticalPartyResponse response = await apl.UpdatePoliticalParty(politicalParty);
+            return response;
+
+        }
+
+        [HttpDelete]
+        [Route("DeletePoliticalParty/{id}")]
+        public Task<PoliticalPartyResponse> DeletePoliticalParty(int id)
+        {
+            Application apl = new Application();
+            Task<PoliticalPartyResponse> response = apl.DeletePoliticalParty(id);
+            return response;
+
+        }
+
 
     }
 }

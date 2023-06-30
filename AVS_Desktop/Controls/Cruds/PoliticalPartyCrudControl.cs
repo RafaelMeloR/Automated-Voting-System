@@ -7,13 +7,15 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using static AVS_Desktop.utilities;
-
+//API IMPLEMENTED
 namespace AVS_Desktop.Controls.Cruds
 {
     public class PoliticalPartyCrudControl
@@ -21,13 +23,23 @@ namespace AVS_Desktop.Controls.Cruds
         static int id = 0;
         public static async Task Insert(PoliticalPartyCrud obj)
         {
-            PoliticalParty politicalParty = new PoliticalParty();
-            politicalParty.Name = obj.Name.Text; 
-            await dal.set.InsertPoliticalParty(politicalParty); 
+            HttpClient httpClient = API.conn();
+            PoliticalParty party = new PoliticalParty();
+            party.Name = obj.Name.Text; 
+            var response = await httpClient.PostAsJsonAsync<PoliticalParty>("InsertPoliticalParty", party);
+            MessageBox.Show(response.ToString());    
             clean(obj);
         } 
         public static async Task Update(PoliticalPartyCrud obj)
         {
+           /* HttpClient httpClient = API.conn();
+            PoliticalParty party = new PoliticalParty();
+            party.Id = id;
+            party.Name = obj.Name.Text;
+            var response = await httpClient.PutAsJsonAsync<PoliticalParty>("UpdateProduct", party);
+            MessageBox.Show(response.ToString());
+            clean(obj);*/
+
             PoliticalParty politicalParty = new PoliticalParty();
             politicalParty.Name = obj.Name.Text;
             politicalParty.Id = id;
@@ -35,11 +47,10 @@ namespace AVS_Desktop.Controls.Cruds
             clean(obj);
         } 
         public static async Task Delete(PoliticalPartyCrud obj)
-        {
-            PoliticalParty politicalParty = new PoliticalParty();
-            politicalParty.Name = obj.Name.Text;
-            politicalParty.Id = id;
-            await dal.set.DeletePoliticalParty(politicalParty); 
+        {  
+            HttpClient httpClient = API.conn();
+            var response = await httpClient.DeleteAsync("DeletePoliticalParty/" + id);
+            MessageBox.Show(response.ToString());
             clean(obj);
         } 
         public static async Task<bool> fillGrid(PoliticalPartyCrud obj)
