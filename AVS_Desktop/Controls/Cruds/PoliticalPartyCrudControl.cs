@@ -1,14 +1,18 @@
 ﻿using AVS_Desktop.DataAccessLayer;
 using AVS_Desktop.Models;
+using AVS_Desktop.Models.response;
 using AVS_Desktop.Views;
 using AVS_Desktop.Views.CRUD;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static AVS_Desktop.utilities;
 
 namespace AVS_Desktop.Controls.Cruds
 {
@@ -38,26 +42,34 @@ namespace AVS_Desktop.Controls.Cruds
             await dal.set.DeletePoliticalParty(politicalParty); 
             clean(obj);
         } 
-        public static bool fillGrid(PoliticalPartyCrud obj)
+        public static async Task<bool> fillGrid(PoliticalPartyCrud obj)
         {
-            DataTable dt = dal.get.selectPoliticalsParties();
-            utilities.AVS.DataTableToDataGrid(obj.PartiesGrid, dt);
-            return true;
+            HttpClient httpClient = API.conn();
+            var response = await httpClient.GetStringAsync("selectPoliticalsParties");
+            PoliticalPartyResponse response_Json = JsonConvert.DeserializeObject<PoliticalPartyResponse>(response);
+            obj.PartiesGrid.ItemsSource = response_Json.politicalParties;
+
+            return true; 
         } 
         public static void CopyFromGridToTextbox(PoliticalPartyCrud obj)
         {
-            DataRowView selected_row = obj.PartiesGrid.SelectedItem as DataRowView;
-            if (selected_row != null && selected_row.Row != null)
+            PoliticalParty selected_row = obj.PartiesGrid.SelectedItem as PoliticalParty;
+            if (selected_row != null)
             {
                 if (selected_row != null)
                 {
-                    obj.Name.Text = selected_row[1].ToString();
-                    id=(int) selected_row[0];
+                    obj.Name.Text = selected_row.Name;
+                    id=(int) selected_row.Id;
                 }
             }
         } 
         public static void showPeopleByName(PoliticalPartyCrud obj)
         {
+            /*HttpClient httpClient = API.conn();
+            var response = await httpClient.GetStringAsync("selectPoliticalPartyByName/" + obj.search.Text);
+            PoliticalPartyResponse response_Json = JsonConvert.DeserializeObject<PoliticalPartyResponse>(response);
+            obj.PartiesGrid.ItemsSource = response_Json.politicalParties;*/
+
             PoliticalParty politicalParty = new PoliticalParty();
             politicalParty.Name=obj.search.Text;
             utilities.AVS.DataTableToDataGrid(obj.PartiesGrid, dal.get.selectPoliticalPartyByName(politicalParty)); 

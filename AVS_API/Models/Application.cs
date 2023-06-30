@@ -395,9 +395,7 @@ namespace AVS_API.Models
                     politicalParty.Id = (int)row[0];
                     listOfPoliticalParties.Add(politicalParty);
                 }
-            }
-              
-
+            } 
             if (listOfPoliticalParties.Count > 0)
             {
                 response.statusCode = 200;
