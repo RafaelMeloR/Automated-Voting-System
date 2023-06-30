@@ -277,7 +277,7 @@ namespace AVS_API.Controllers
         }
 
         [HttpGet]
-        [Route("CountVotes/{Candidates}")]
+        [Route("CountVotes/{candidates}")]
         public CountVotesResponse CountVotes(List<Candidate> candidates)
         {
             CountVotesResponse response = new CountVotesResponse();
@@ -295,6 +295,16 @@ namespace AVS_API.Controllers
             response = await app.SelectPersonByEmail(email);
             return response;
         }
+
+        [HttpGet]
+        [Route("SelectPersonById/{id}")]
+        public PersonResponse SelectPersonById(int id)
+        {
+            PersonResponse response = new PersonResponse();
+            Application app = new Application();
+            response =  app.SelectPersonById(id);
+            return response;
+        } 
 
     }
 }

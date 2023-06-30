@@ -881,6 +881,45 @@ namespace AVS_API.Models
             return response;
         }
 
+        public  PersonResponse SelectPersonById(int id)
+        {
+            DataTable dt =  dal.get.SelectPersonById(id);  
+            PersonResponse response = new PersonResponse(); 
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PersonViewModel person = new PersonViewModel();
+                    person.Id = (int)dt.Rows[i]["Id"];
+                    person.Name = (string)dt.Rows[i]["Name"];
+                    person.LastName = (string)dt.Rows[i]["LastName"];
+                    person.Gender = (string)dt.Rows[i]["Gender"];
+                    person.Email = (string)dt.Rows[i]["Email"];
+                    person.Phone = dt.Rows[i]["Phone"].ToString();
+                    person.Thoroughfare = (string)dt.Rows[i]["Thoroughfare"];
+                    person.ApartmentNumber = (string)dt.Rows[i]["ApartmentNumber"];
+                    person.PostalCode = (string)dt.Rows[i]["PostalCode"];
+                    person.City = (string)dt.Rows[i]["City"];
+                    person.UserId = (string)dt.Rows[i]["UserId"];
+                    person.RoleId = (string)dt.Rows[i]["RoleId"];
+                    person.RoleName = (string)dt.Rows[i]["Name"];
+                     
+                    response.statusCode = 200;
+                    response.statusMessage = "Data retrievable is successful";
+                    response.person = person;
+                }
+
+            } 
+            else
+            {
+                response.statusCode = 100;
+                response.statusMessage = "No data retrievable";
+                response.person = null;
+            }
+            return response;
+        }
+
     }
 }
   

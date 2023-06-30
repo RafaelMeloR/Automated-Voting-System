@@ -220,6 +220,12 @@ namespace AVS_API.DataAccessLayer
 
             }
             //done
+            public static DataTable SelectPersonById(int  id)
+            {
+                return utilities.sql.Get(" SELECT P.Id, P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.id = " + id + ";");
+
+            }
+            //done
             public static DataTable SelectPeopleByName(String name)
             {
                 return utilities.sql.Get(" SELECT P.Id, P.Name, P.LastName, P.Gender, P.Email,P.Phone,A.Thoroughfare, A.ApartmentNumber,A.PostalCode, A.City, p.UserId, UR.RoleId, R.Name FROM Person AS P\r\n JOIN Address AS A ON P.id = A.PersonId \r\n JOIN AspNetUserRoles AS UR on P.UserId =UR.UserId\r\n JOIN AspNetRoles  AS R on UR.RoleId=R.Id\r\n WHERE P.Name like '%" + name + "%';");
