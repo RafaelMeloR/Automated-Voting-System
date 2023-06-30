@@ -24,5 +24,10 @@ namespace AVS_Desktop.Views
                 LoginVoteControl.ValidateUID(Uid.Text, this);
             }
         }
+
+        private void close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -13,5 +13,6 @@
             <TextBox x:Name="Uid" Margin="26,345,155,55" TextWrapping="Wrap" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button x:Name="validate" Content="Validate" Margin="599,345,17,0" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Validate_Click" Height="37" VerticalAlignment="Top"/>
         </Grid>
+        <Button x:Name="close" Content="X" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="42" Width="83" Background="White" BorderBrush="White" Foreground="Red" FontSize="22" FontWeight="ExtraLight" Click="close_Click"/>
     </Grid>
 </Window>
