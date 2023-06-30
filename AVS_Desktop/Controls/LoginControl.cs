@@ -1,28 +1,44 @@
 ﻿using AVS_Desktop.DataAccessLayer;
 using AVS_Desktop.Views;
 using AVS_Desktop.Views.Consults;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
-
+using static AVS_Desktop.utilities;
+using System.Windows.Controls;
+using AVS_Desktop.ViewModels;
+using AVS_Desktop.Models.response;
+using AVS_Desktop.Models;
+using Candidate = AVS_Desktop.Views.Candidate;
+//API IMPLEMENTED
 namespace AVS_Desktop.Controls
 {
     internal class LoginControl
     {
         public  static string sesion;
-        public void Login(Login obj)
+        public async void Login(Login obj)
         {
             bool auth = utilities.tools.VerifyHashPassword(obj.user.Text, obj.password.Password);
             if (auth)
             {
                 sesion = obj.user.Text;
-                String role = dal.get.SelectRoleIdFromUsers(obj.user.Text);
-                String roleName = dal.get.SelectRoleName(role);
+
+                HttpClient httpClient = API.conn();
+                var response = await httpClient.GetStringAsync("SelectRoleIdFromUsers/" + obj.user.Text);
+                PersonResponse response_Json = JsonConvert.DeserializeObject<PersonResponse>(response);
+                PersonViewModel person = response_Json.person;
+                 
+                response = await httpClient.GetStringAsync("SelectRoleName/" + person.RoleId);
+                RoleResponse roleResponse = JsonConvert.DeserializeObject<RoleResponse>(response);
+                Role role = roleResponse.role; 
+                String roleName = role.Name;
 
                 if (roleName == "admin")
                 {
