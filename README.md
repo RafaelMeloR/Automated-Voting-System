@@ -104,4 +104,4 @@ The Automated Voting System is developed using the following technologies and to
 - Unit Testing: NUnit
 - Deployment Environment: Microsoft Azure
 
-The use of C# and Microsoft SQL Server 16.x, along with the .NET Framework 4.8, ensures a robust and secure platform for development. The repository is hosted on GitHub for easy collaboration and version control.
+The use of C# and Microsoft SQL Server 16.x, along with the .NET Framework 4.8, ensures a robust and secure platform for development. The repository is hosted on GitHub for easy collaboration and version control.lll
